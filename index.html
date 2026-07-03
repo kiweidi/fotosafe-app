@@ -11,7 +11,7 @@
     a{color:var(--blue2);font-weight:700}.wrap{max-width:1040px;margin:0 auto;padding:32px 18px 64px}.hero{display:grid;gap:24px;align-items:center;padding:34px 0 24px}@media(min-width:840px){.hero{grid-template-columns:1.1fr .9fr;padding:64px 0 42px}}
     .pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:white;border-radius:999px;padding:8px 12px;color:var(--blue);font-weight:800;font-size:14px;box-shadow:0 10px 30px rgba(6,21,43,.06)}.dot{width:9px;height:9px;border-radius:99px;background:#2997ff;box-shadow:0 0 0 5px rgba(41,151,255,.14)}
     h1{font-size:clamp(42px,8vw,76px);line-height:.96;letter-spacing:-3px;margin:18px 0 16px}h1 span{color:var(--blue)}.lead{font-size:clamp(19px,2.5vw,25px);line-height:1.35;color:var(--muted);max-width:720px}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:0 18px;text-decoration:none}.btn.primary{background:var(--ink);color:white}.btn.secondary{background:white;border:1px solid var(--line);color:var(--blue)}
-    .card{background:white;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:0 18px 60px rgba(15,23,42,.08)}.mock{min-height:360px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#eaf4ff,#fff);overflow:hidden}.phone{width:235px;border-radius:34px;background:#101827;padding:10px;box-shadow:0 24px 70px rgba(6,21,43,.22);transform:rotate(2deg)}.screen{border-radius:26px;background:white;padding:18px;min-height:420px}.appbar{background:#0b3a78;color:white;border-radius:18px;padding:14px;font-weight:900;text-align:center}.step{margin-top:12px;border:1px solid #dbe7f6;border-radius:14px;padding:12px;font-weight:750}.ok{color:var(--green)}.disabled{color:#94a3b8}.safe{margin-top:16px;background:#e9f8ef;color:#12633e;border-radius:14px;padding:12px;font-weight:800}
+    .card{background:white;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:0 18px 60px rgba(15,23,42,.08)}.mock{min-height:420px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#eaf4ff,#fff);overflow:hidden}.phone{width:255px;border-radius:34px;background:#101827;padding:10px;box-shadow:0 24px 70px rgba(6,21,43,.22);transform:rotate(2deg)}.phone.small{width:190px;transform:none}.screen{border-radius:26px;background:white;overflow:hidden}.screen img{display:block;width:100%;height:auto}.shot-card{padding:12px}.shot-card p{margin:10px 4px 0;color:var(--muted);font-size:14px;line-height:1.4;font-weight:700}.shot-card .phone{margin:0 auto}
     .grid{display:grid;gap:16px;margin-top:22px}@media(min-width:760px){.grid.three{grid-template-columns:repeat(3,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}}.feature h3{margin:0 0 8px;font-size:21px}.feature p{margin:0;color:var(--muted);line-height:1.55}.icon{width:42px;height:42px;border-radius:15px;background:var(--soft);display:grid;place-items:center;color:var(--blue);font-weight:900;margin-bottom:12px}
     .section{margin-top:34px}.section h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1.3px;margin:0 0 12px}.section-lead{color:var(--muted);font-size:18px;line-height:1.55;margin:0}.facts{width:100%;border-collapse:collapse;margin-top:16px;overflow:hidden;border-radius:18px}.facts td,.facts th{border:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}.facts th{background:var(--soft)}
     .status{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#fff7df;color:var(--warn);border:1px solid #f3d37a;font-weight:800}.footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}.small{font-size:14px;color:var(--muted);line-height:1.5}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -30,15 +30,9 @@
         </div>
         <p class="small" style="margin-top:14px">Noch nicht öffentlich im Play Store: Google-Developer-Verifizierung läuft, Closed Test wird vorbereitet.</p>
       </div>
-      <div class="card mock" aria-label="FotoSafe App Vorschau">
+      <div class="card mock" aria-label="Echter FotoSafe Screenshot auf Samsung S23">
         <div class="phone"><div class="screen">
-          <div class="appbar">FotoSafe</div>
-          <p class="small" style="margin:14px 0 0">Einfach Sicher: Fotos & Videos auf USB speichern.</p>
-          <div class="step ok">✓ 1. Medien-Berechtigung</div>
-          <div class="step ok">✓ 2. USB-Ordner OK</div>
-          <div class="step">3. Medien scannen</div>
-          <div class="step disabled">4. Backup starten</div>
-          <div class="safe">Diese App löscht keine Originale vom Handy.</div>
+          <img src="assets/screenshot-start-de.jpg" alt="FotoSafe v0.14 Startscreen auf Deutsch mit Medien-Berechtigung, USB-Ordner und Scan-Schritt">
         </div></div>
       </div>
     </section>
@@ -50,6 +44,16 @@
         <article class="card feature"><div class="icon">USB</div><h3>Lokales Backup</h3><p>Fotos und Videos werden auf ein vom Nutzer gewähltes USB-/Speicherziel kopiert.</p></article>
         <article class="card feature"><div class="icon">✓</div><h3>Originale bleiben</h3><p>FotoSafe kopiert nur. Es werden keine Originaldateien vom Handy gelöscht.</p></article>
         <article class="card feature"><div class="icon">↻</div><h3>Wiederholbar</h3><p>Bereits gesicherte Dateien werden übersprungen. Ein zweiter Lauf ist dadurch schneller.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Echte Screens aus v0.14</h2>
+      <p class="section-lead">Aufgenommen auf einem Samsung S23: einfacher Start, Expertenmodus und fertiges Backup-Ergebnis.</p>
+      <div class="grid three">
+        <article class="card shot-card"><div class="phone small"><div class="screen"><img src="assets/screenshot-start-de.jpg" alt="FotoSafe Startscreen v0.14 Deutsch"></div></div><p>Geführter Start mit USB-Ordner und Hinweis: Originale bleiben am Handy.</p></article>
+        <article class="card shot-card"><div class="phone small"><div class="screen"><img src="assets/screenshot-expert-de.jpg" alt="FotoSafe Expertenmodus v0.14 Deutsch"></div></div><p>Expertenmodus für WhatsApp, Telegram, Downloads, Screenshots und Videos.</p></article>
+        <article class="card shot-card"><div class="phone small"><div class="screen"><img src="assets/screenshot-result-de.jpg" alt="FotoSafe Ergebnis v0.14 Deutsch"></div></div><p>Klare Zusammenfassung: gefunden, kopiert, übersprungen, Fehler und Protokoll.</p></article>
       </div>
     </section>
 
