@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Schritt-für-Schritt: USB-Stick in FotoSafe auf Samsung und Android richtig als Sicherungsort auswählen und typische Fehler erkennen.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="data:,">
+  <title>USB-Stick richtig auswählen — FotoSafe Hilfe</title>
+  <style>
+    :root{--ink:#07111f;--muted:#526379;--blue:#0b3a78;--blue2:#0f5ebd;--soft:#eef5ff;--line:#dbe7f6;--green:#187b4e;--red:#a62f2f;--red-soft:#fff2f1;--warn:#8a5700;--warn-soft:#fff7df;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#f6f8fb}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% 0,rgba(41,151,255,.15),transparent 32rem),linear-gradient(180deg,#fff 0,#f6f8fb 55%,#fff 100%)}
+    a{color:var(--blue2);font-weight:750}.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 64px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-size:21px;font-weight:900}.mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:13px;box-shadow:0 8px 24px rgba(11,58,120,.2)}.back{display:inline-flex;min-height:44px;align-items:center;text-decoration:none;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff}
+    .hero{padding:58px 0 28px;max-width:850px}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;color:var(--blue);font-weight:850;font-size:14px}.dot{width:9px;height:9px;border-radius:50%;background:#2997ff;box-shadow:0 0 0 5px rgba(41,151,255,.14)}h1{font-size:clamp(38px,7vw,68px);line-height:1;letter-spacing:-2.6px;margin:18px 0 16px}h1 span{color:var(--blue)}.lead{font-size:clamp(19px,2.5vw,24px);line-height:1.45;color:var(--muted);max-width:780px}.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:0 18px;text-decoration:none}.btn.primary{background:var(--ink);color:#fff}.btn.secondary{background:#fff;border:1px solid var(--line);color:var(--blue)}
+    .decision{display:grid;gap:14px;margin:12px 0 40px}@media(min-width:720px){.decision{grid-template-columns:1fr 1fr}}.decision-card{border-radius:24px;padding:22px;border:1px solid}.decision-card.good{background:#effaf5;border-color:#a9dec5}.decision-card.bad{background:var(--red-soft);border-color:#efb9b5}.decision-card strong{display:block;font-size:21px;margin-bottom:7px}.decision-card p{margin:0;color:var(--muted);line-height:1.55}.signal{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;font-weight:900;margin-bottom:12px}.good .signal{background:#d5f3e4;color:var(--green)}.bad .signal{background:#ffdcd8;color:var(--red)}
+    .section{margin-top:44px}.section h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1.2px;margin:0 0 10px}.section-lead{margin:0;color:var(--muted);font-size:18px;line-height:1.6;max-width:800px}.steps{display:grid;gap:20px;margin-top:24px}.step{background:#fff;border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:0 16px 52px rgba(15,23,42,.07)}@media(min-width:820px){.step{display:grid;grid-template-columns:minmax(0,.9fr) minmax(300px,1.1fr);gap:28px;align-items:start;padding:26px}.step:nth-child(even) .visual{order:2}.step:nth-child(even) .copy{order:1}}.step-no{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--blue);font-size:20px;font-weight:900}.step h3{font-size:26px;margin:14px 0 8px}.step p,.step li{color:var(--muted);line-height:1.6}.step ul{padding-left:20px}.visual img{display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line)}.caption{font-size:13px!important;margin:9px 3px 0!important;color:#718096!important}
+    .correct{background:linear-gradient(145deg,#0b3a78,#0f5ebd);color:#fff;border-radius:26px;padding:26px;margin-top:24px}.correct h3{font-size:27px;margin:0 0 12px}.correct p{color:#e6f1ff;line-height:1.6}.checks{display:grid;gap:11px;margin-top:16px}.check{display:flex;gap:11px;align-items:flex-start;background:rgba(255,255,255,.1);padding:12px 14px;border-radius:15px}.check b{color:#fff}.check span:first-child{font-weight:900;color:#9ff0c8}
+    .trouble{display:grid;gap:16px;margin-top:22px}@media(min-width:760px){.trouble{grid-template-columns:1fr 1fr}}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:21px}.card h3{margin:0 0 8px;font-size:20px}.card p,.card li{color:var(--muted);line-height:1.55}.card ul{padding-left:19px;margin-bottom:0}.warning{background:var(--warn-soft);border-color:#f1d27c}.danger{background:var(--red-soft);border-color:#efb9b5}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;text-align:center}.footer a{margin:0 5px}
+    @media(max-width:560px){.wrap{padding-left:14px;padding-right:14px}.hero{padding-top:42px}h1{letter-spacing:-1.6px}.step{padding:14px}.topbar{align-items:flex-start}.back{font-size:14px}.decision-card{padding:18px}.correct{padding:21px}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"HowTo","name":"USB-Stick in FotoSafe richtig auswählen","description":"USB-Stick in FotoSafe über den Android-Dateidialog als Sicherungsort wählen.","totalTime":"PT2M","step":[{"@type":"HowToStep","name":"USB-Stick anschließen"},{"@type":"HowToStep","name":"Sicherungsort ändern öffnen"},{"@type":"HowToStep","name":"USB-Speicher kontrollieren"},{"@type":"HowToStep","name":"USB-Ordner verwenden"},{"@type":"HowToStep","name":"Ziel in FotoSafe prüfen"}]}
+  </script>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="topbar" aria-label="Seitennavigation">
+      <a class="brand" href="index.html"><span class="mark">USB</span><span>FotoSafe Hilfe</span></a>
+      <a class="back" href="index.html">← Zur FotoSafe-Seite</a>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow"><span class="dot"></span> Anleitung für Android & Samsung</div>
+      <h1>USB-Stick <span>richtig auswählen.</span></h1>
+      <p class="lead">Entscheidend ist nicht nur der Ordnername: Oben im Android-Dateidialog muss der <strong>USB-Datenträger</strong> stehen. „Galaxy S23“, „Interner Speicher“ oder „Downloads“ sind das Handy – nicht dein USB-Stick.</p>
+      <div class="jump">
+        <a class="btn primary" href="#anleitung">Schritt für Schritt</a>
+        <a class="btn secondary" href="#probleme">USB wird nicht angezeigt</a>
+      </div>
+    </header>
+
+    <section class="decision" aria-label="Richtig oder falsch erkennen">
+      <article class="decision-card good"><span class="signal">✓</span><strong>Richtig</strong><p>Oben steht der Name des USB-Speichers, zum Beispiel <b>USB-Laufwerk</b>, <b>USB storage</b> oder der Name des Sticks.</p></article>
+      <article class="decision-card bad"><span class="signal">!</span><strong>Falsch</strong><p>Oben steht <b>Galaxy S23</b>, <b>Interner Speicher</b> oder ein Handyordner. Dann würdest du wieder auf dem Smartphone speichern.</p></article>
+    </section>
+
+    <section class="section" id="anleitung">
+      <h2>Schritt-für-Schritt-Anleitung</h2>
+      <p class="section-lead">Die Bilder stammen aus dem echten FotoSafe- und Samsung-Dateidialog. Bezeichnungen können je nach Hersteller und Android-Version leicht abweichen.</p>
+
+      <div class="steps">
+        <article class="step">
+          <div class="visual"><img src="assets/usb-hilfe/01-sicherungsort-aendern.jpg" alt="FotoSafe mit markiertem Button Sicherungsort ändern" width="720" height="1030"><p class="caption">Echte FotoSafe-Ansicht auf einem Samsung Galaxy S23.</p></div>
+          <div class="copy"><div class="step-no">1</div><h3>USB-Stick anschließen</h3><p>Stecke den USB-Stick direkt per USB-C oder über einen passenden OTG-Adapter an. Warte einige Sekunden.</p><ul><li>Entsperre das Handy.</li><li>Öffne FotoSafe.</li><li>Tippe unter <b>Auswählen</b> auf <b>„Sicherungsort ändern“</b>.</li></ul></div>
+        </article>
+
+        <article class="step">
+          <div class="visual"><img src="assets/usb-hilfe/02-falscher-speicher.jpg" alt="Samsung-Dateidialog mit rot markiertem internen Speicher Galaxy S23" width="720" height="687"><p class="caption">Hier ist noch „Galaxy S23 › Test“ gewählt – das ist absichtlich das falsche Beispiel.</p></div>
+          <div class="copy"><div class="step-no">2</div><h3>Oben den Speicher prüfen</h3><p>Der Android-Dateidialog öffnet sich oft beim zuletzt verwendeten Ordner. Schaue zuerst auf den Namen ganz oben beziehungsweise in der Pfadzeile.</p><ul><li><b>„Galaxy S23“</b> bedeutet interner Handyspeicher.</li><li><b>„Test“</b>, <b>„Downloads“</b> oder <b>„DCIM“</b> können ebenfalls Handyordner sein.</li><li>Bestätige noch nichts, solange der USB-Datenträger nicht eindeutig genannt wird.</li></ul></div>
+        </article>
+
+        <article class="step">
+          <div class="visual"><img src="assets/usb-hilfe/03-usb-nicht-erkannt.jpg" alt="Samsung-Dateidialog zeigt nur Galaxy S23 und damit keinen erkannten USB-Stick" width="720" height="887"><p class="caption">Wenn nur das Handy als Speicher auftaucht, kann FotoSafe den USB-Stick nicht auswählen.</p></div>
+          <div class="copy"><div class="step-no">3</div><h3>USB-Speicher öffnen</h3><p>Wechsle in der Speicherortauswahl zum USB-Datenträger. Je nach Gerät erscheint er als <b>USB-Laufwerk</b>, <b>USB storage</b>, Herstellername oder eigener Datenträgername.</p><p>Auf manchen Android-Versionen gibt es dafür links oben ein Menü. Bei Samsung kann der USB-Speicher direkt als eigener Speicherort erscheinen. Wenn nur der Handyname sichtbar bleibt, gehe zu <a href="#probleme">„USB wird nicht angezeigt“</a>.</p></div>
+        </article>
+
+        <article class="step">
+          <div class="copy"><div class="step-no">4</div><h3>Ordner am USB-Stick bestätigen</h3><p>Öffne den USB-Stick. Wenn die Schaltfläche aktiv ist, kannst du den USB-Hauptordner wählen. Falls Android das nicht erlaubt:</p><ul><li>Tippe auf <b>„Neuen Ordner erstellen“</b>.</li><li>Vergib beispielsweise den Namen <b>„Backup“</b>.</li><li>Öffne diesen Ordner und tippe auf <b>„Diesen Ordner verwenden“</b>.</li><li>Bestätige anschließend Androids Zugriffsabfrage mit <b>„Zulassen“</b>.</li></ul><p>FotoSafe erstellt im gewählten Speicherort automatisch seinen eigenen Ordner <span class="mono">FotoSafe</span>.</p></div>
+          <div class="correct"><h3>Vor dem Bestätigen kontrollieren</h3><div class="checks"><div class="check"><span>✓</span><span>Oben steht der <b>USB-Datenträger</b>, nicht das Handy.</span></div><div class="check"><span>✓</span><span>Der Button <b>„Diesen Ordner verwenden“</b> ist aktiv.</span></div><div class="check"><span>✓</span><span>Du wählst einen Ordner, nicht einzelne Fotos oder Videos.</span></div></div></div>
+        </article>
+
+        <article class="step">
+          <div class="copy"><div class="step-no">5</div><h3>Zurück in FotoSafe prüfen</h3><p>Nach der Auswahl zeigt FotoSafe unter <b>„Ziel“</b> den gewählten Sicherungsort. Prüfe den Namen noch einmal, bevor du <b>„Auswahl prüfen“</b> und später das Backup startest.</p><p><strong>Wichtig:</strong> Ziehe Stick oder Adapter während des Backups nicht ab. Prüfe wichtige Sicherungen anschließend direkt am USB-Stick.</p></div>
+          <div class="correct"><h3>Merksatz</h3><p><strong>Steht oben der Handyname, bist du am falschen Speicher. Steht dort der USB-Datenträger, kannst du den Ordner verwenden.</strong></p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="probleme">
+      <h2>USB-Stick wird nicht angezeigt?</h2>
+      <p class="section-lead">Wenn Android den Stick nicht als Speicherort anbietet, kann FotoSafe ihn ebenfalls nicht auswählen. Diese Reihenfolge verhindert unnötiges Formatieren.</p>
+      <div class="trouble">
+        <article class="card"><h3>1. Verbindung neu herstellen</h3><ul><li>Dateidialog schließen.</li><li>Stick und Adapter abziehen.</li><li>Neu und vollständig einstecken.</li><li>Einige Sekunden warten und FotoSafe erneut öffnen.</li></ul></article>
+        <article class="card"><h3>2. Mit „Eigene Dateien“ prüfen</h3><p>Öffne Samsungs App <b>„Eigene Dateien“</b> oder den Dateimanager deines Herstellers. Wird der USB-Stick auch dort nicht angezeigt, liegt das Problem nicht an FotoSafe.</p></article>
+        <article class="card"><h3>3. Adapter und Strombedarf</h3><p>Prüfe einen anderen OTG-Adapter oder einen kleineren USB-Stick. Manche Laufwerke benötigen mehr Strom, als das Handy zuverlässig liefern kann.</p></article>
+        <article class="card warning"><h3>4. Dateisystem prüfen</h3><p><b>exFAT</b> ist für große Videos geeignet und funktioniert häufig mit Android, Windows und macOS. FAT32 hat eine Dateigrößenbegrenzung von 4 GB.</p></article>
+        <article class="card danger"><h3>Formatieren nur als letzter Schritt</h3><p><strong>Achtung: Beim Formatieren werden alle Dateien auf dem USB-Stick gelöscht.</strong> Sichere vorhandene Daten zuerst auf einem anderen Speicher. Formatiere niemals nur auf Verdacht.</p></article>
+        <article class="card"><h3>Immer noch nicht sichtbar?</h3><p>Teste Stick und Adapter an einem anderen Android-Gerät oder Computer. Für Support: <a href="mailto:fotosafe.app@gmail.com?subject=FotoSafe%20USB-Stick%20wird%20nicht%20erkannt">fotosafe.app@gmail.com</a></p></article>
+      </div>
+    </section>
+
+    <footer class="footer">© 2026 Peter Weitgasser · FotoSafe · <a href="index.html">Startseite</a> · <a href="privacy.html">Datenschutzerklärung</a></footer>
+  </main>
+</body>
+</html>
