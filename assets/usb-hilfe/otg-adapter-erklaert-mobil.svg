@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">USB-Stick über einen OTG-Adapter mit dem Smartphone verbinden</title>
+  <desc id="desc">Oben ein Android-Handy mit USB-C, darunter ein datenfähiger OTG-Adapter und unten ein normaler USB-A-Stick.</desc>
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="600" height="760" rx="28" fill="#f7faff"/>
+  <text x="300" y="42" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="26" font-weight="800" fill="#07111f">So wird der USB-Stick verbunden</text>
+
+  <rect x="205" y="72" width="190" height="225" rx="26" fill="#ffffff" stroke="#0b3a78" stroke-width="4"/>
+  <rect x="224" y="98" width="152" height="158" rx="13" fill="#eaf3ff"/>
+  <circle cx="300" cy="87" r="5" fill="#526379"/>
+  <rect x="282" y="285" width="36" height="8" rx="4" fill="#07111f"/>
+  <text x="300" y="327" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="23" font-weight="750" fill="#07111f">Android-Handy mit USB-C</text>
+
+  <path d="M300 342V382" fill="none" stroke="#187b4e" stroke-width="5" marker-end="url(#down)"/>
+  <rect x="126" y="399" width="348" height="105" rx="23" fill="#ffffff" stroke="#0f5ebd" stroke-width="4"/>
+  <rect x="103" y="420" width="36" height="63" rx="11" fill="#dcecff" stroke="#0f5ebd" stroke-width="3"/>
+  <rect x="111" y="402" width="20" height="24" rx="7" fill="#b9c4d2" stroke="#526379" stroke-width="2"/>
+  <rect x="434" y="421" width="25" height="61" rx="4" fill="#07111f"/>
+  <rect x="439" y="428" width="15" height="47" rx="2" fill="#dcecff"/>
+  <text x="300" y="439" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="25" font-weight="850" fill="#0b3a78">USB-C-OTG-Adapter</text>
+  <text x="300" y="472" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="21" font-weight="750" fill="#187b4e">Datenfähig</text>
+
+  <path d="M300 520V558" fill="none" stroke="#187b4e" stroke-width="5" marker-end="url(#down)"/>
+  <rect x="174" y="580" width="84" height="59" rx="5" fill="#c5ceda" stroke="#526379" stroke-width="3"/>
+  <rect x="185" y="590" width="15" height="39" rx="2" fill="#ffffff"/>
+  <rect x="211" y="590" width="15" height="39" rx="2" fill="#ffffff"/>
+  <rect x="250" y="560" width="205" height="100" rx="24" fill="#0b3a78"/>
+  <path d="M294 610h82" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M354 589l23 21-23 21" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="417" cy="610" r="13" fill="#eaf3ff"/>
+  <text x="300" y="701" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="24" font-weight="750" fill="#07111f">normaler USB-A-Stick</text>
+  <text x="300" y="731" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="18" fill="#526379">Der Adapter ist die Brücke.</text>
+</svg>
