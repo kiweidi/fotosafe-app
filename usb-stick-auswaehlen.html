@@ -215,11 +215,16 @@
     .selection-principles li { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); list-style: none; }
     .selection-principles b { color: var(--ink); }
     .selection-principles span:first-child { color: var(--blue-700); font-weight: 900; }
+    .category-jump { display: grid; gap: 10px; margin-top: 20px; }
+    .category-jump a { display: flex; min-height: 52px; align-items: center; gap: 10px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 15px; background: #fff; color: var(--blue-950); text-decoration: none; box-shadow: var(--shadow-sm); }
+    .category-jump a:hover { border-color: #adc7e5; background: var(--blue-050); }
+    .category-jump span { color: var(--blue-700); font-weight: 900; }
     .affiliate-disclosure { margin-top: 24px; padding: 20px 22px; border: 1px solid #c6d8ee; border-left: 5px solid var(--blue-700); border-radius: 18px; background: #fff; box-shadow: var(--shadow-sm); }
     .affiliate-disclosure h3 { margin: 0 0 7px; font-size: 19px; }
     .affiliate-disclosure p { margin: 6px 0 0; color: var(--muted); }
     .affiliate-disclosure .amazon-partner { color: var(--ink); font-weight: 800; }
     .selection-category { padding: 26px; }
+    .selection-category[id] { scroll-margin-top: 28px; }
     .category-heading { display: grid; gap: 16px; align-items: start; }
     .category-label { width: fit-content; padding: 6px 10px; background: var(--blue-100); color: var(--blue-900); font-size: 13px; }
     .category-heading h3 { margin: 9px 0 8px; font-size: clamp(25px, 3.2vw, 32px); }
@@ -247,6 +252,7 @@
 
     @media (min-width: 700px) {
       .decision, .trouble { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .category-jump { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .selection-intro { grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); }
     }
@@ -263,6 +269,7 @@
       .step:nth-child(even) .copy { order: 1; }
     }
     @media (min-width: 980px) {
+      .category-jump { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .category-heading { grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); }
     }
@@ -446,6 +453,13 @@
         </ol>
       </div>
 
+      <nav class="category-jump" aria-label="Direkt zur passenden Auswahlhilfe">
+        <a href="#cat-otg"><span aria-hidden="true">A</span> OTG-Adapter</a>
+        <a href="#cat-usbc"><span aria-hidden="true">B</span> USB-Sticks mit USB-C</a>
+        <a href="#cat-usba"><span aria-hidden="true">C</span> USB-Sticks ohne USB-C</a>
+        <a href="#cat-phone"><span aria-hidden="true">D</span> Smartphones</a>
+      </nav>
+
       <aside class="affiliate-disclosure" aria-labelledby="affiliate-title">
         <h3 id="affiliate-title">Werbung / Affiliate-Links</h3>
         <p>Einige der künftig hier verlinkten Produkte können Affiliate-Links sein. Wenn du über einen entsprechend gekennzeichneten Link einkaufst, kann FotoSafe eine Provision erhalten. Für dich ändert sich der Preis dadurch nicht.</p>
@@ -467,9 +481,9 @@
         5. Keine Preise, Bewertungen oder Amazon-Bilder manuell übernehmen.
       -->
 
-      <article class="selection-category" aria-labelledby="cat-otg">
+      <article class="selection-category" id="cat-otg" aria-labelledby="cat-otg-title">
         <div class="category-heading">
-          <div><span class="category-label">Kategorie A</span><h3 id="cat-otg">OTG-Adapter</h3><p>Ein USB-C-OTG-Adapter verbindet einen klassischen USB-A-Stick mit dem Smartphone. Er muss zum Anschluss des Handys passen und ausdrücklich OTG beziehungsweise Datenübertragung unterstützen; reine Ladeadapter sind ungeeignet. Eine kompakte Bauform belastet den Handyanschluss weniger.</p></div>
+          <div><span class="category-label">Kategorie A</span><h3 id="cat-otg-title">OTG-Adapter</h3><p>Ein USB-C-OTG-Adapter verbindet einen klassischen USB-A-Stick mit dem Smartphone. Er muss zum Anschluss des Handys passen und ausdrücklich OTG beziehungsweise Datenübertragung unterstützen; reine Ladeadapter sind ungeeignet. Eine kompakte Bauform belastet den Handyanschluss weniger.</p></div>
           <ul class="category-facts"><li>USB-C auf USB-A</li><li>OTG und Datenübertragung</li><li>Möglichst kompakt und passend zum Handy</li></ul>
         </div>
         <div class="product-grid">
@@ -479,9 +493,9 @@
         </div>
       </article>
 
-      <article class="selection-category" aria-labelledby="cat-usbc">
+      <article class="selection-category" id="cat-usbc" aria-labelledby="cat-usbc-title">
         <div class="category-heading">
-          <div><span class="category-label">Kategorie B</span><h3 id="cat-usbc">USB-Sticks mit USB-C</h3><p>USB-C-Sticks können direkt mit vielen aktuellen Smartphones verbunden werden. Besonders praktisch sind Dual-Sticks mit USB-C und USB-A: Der USB-A-Stecker passt direkt an viele Windows-PCs. Welche Kapazität sinnvoll ist, hängt von deiner Fotomenge ab; eine pauschale Kompatibilitätsgarantie gibt es nicht.</p></div>
+          <div><span class="category-label">Kategorie B</span><h3 id="cat-usbc-title">USB-Sticks mit USB-C</h3><p>USB-C-Sticks können direkt mit vielen aktuellen Smartphones verbunden werden. Besonders praktisch sind Dual-Sticks mit USB-C und USB-A: Der USB-A-Stecker passt direkt an viele Windows-PCs. Welche Kapazität sinnvoll ist, hängt von deiner Fotomenge ab; eine pauschale Kompatibilitätsgarantie gibt es nicht.</p></div>
           <ul class="category-facts"><li>Direktanschluss per USB-C</li><li>Dual-Stick für Handy und PC</li><li>Kapazität passend zur Fotomenge</li></ul>
         </div>
         <div class="product-grid">
@@ -491,9 +505,9 @@
         </div>
       </article>
 
-      <article class="selection-category" aria-labelledby="cat-usba">
+      <article class="selection-category" id="cat-usba" aria-labelledby="cat-usba-title">
         <div class="category-heading">
-          <div><span class="category-label">Kategorie C</span><h3 id="cat-usba">USB-Sticks ohne USB-C-Anschluss</h3><p>Klassische USB-A-Sticks benötigen am Smartphone normalerweise einen passenden, datenfähigen OTG-Adapter. Dafür können sie direkt an vielen Computern verwendet werden. Achte auf Datenübertragung, Dateisystem und Strombedarf. Stick und Adapter dürfen während eines Backups nicht entfernt werden.</p></div>
+          <div><span class="category-label">Kategorie C</span><h3 id="cat-usba-title">USB-Sticks ohne USB-C-Anschluss</h3><p>Klassische USB-A-Sticks benötigen am Smartphone normalerweise einen passenden, datenfähigen OTG-Adapter. Dafür können sie direkt an vielen Computern verwendet werden. Achte auf Datenübertragung, Dateisystem und Strombedarf. Stick und Adapter dürfen während eines Backups nicht entfernt werden.</p></div>
           <ul class="category-facts"><li>OTG-Adapter am Smartphone nötig</li><li>Direkt an vielen PCs nutzbar</li><li>Dateisystem und Strombedarf prüfen</li></ul>
         </div>
         <div class="product-grid">
@@ -503,9 +517,9 @@
         </div>
       </article>
 
-      <article class="selection-category" aria-labelledby="cat-phone">
+      <article class="selection-category" id="cat-phone" aria-labelledby="cat-phone-title">
         <div class="category-heading">
-          <div><span class="category-label">Kategorie D</span><h3 id="cat-phone">Geeignete Smartphones</h3><p>Das Android-Gerät muss USB-OTG und das Android Storage Access Framework unterstützen. Konkrete Empfehlungen sollen bevorzugt auf realen FotoSafe-Tests beruhen. Die Darstellung des Dateidialogs kann je nach Hersteller und Android-Version abweichen; ohne echten Test gibt es keine Aussage „garantiert kompatibel“.</p></div>
+          <div><span class="category-label">Kategorie D</span><h3 id="cat-phone-title">Geeignete Smartphones</h3><p>Das Android-Gerät muss USB-OTG und das Android Storage Access Framework unterstützen. Konkrete Empfehlungen sollen bevorzugt auf realen FotoSafe-Tests beruhen. Die Darstellung des Dateidialogs kann je nach Hersteller und Android-Version abweichen; ohne echten Test gibt es keine Aussage „garantiert kompatibel“.</p></div>
           <ul class="category-facts"><li>USB-OTG erforderlich</li><li>Android Storage Access Framework</li><li>Testgerät und Android-Version dokumentieren</li></ul>
         </div>
         <div class="product-grid">
@@ -529,6 +543,7 @@
         <a href="index.html">Startseite</a>
         <a href="usb-stick-auswaehlen.html">USB-Hilfe</a>
         <a href="privacy.html">Datenschutzerklärung</a>
+        <a href="impressum.html">Impressum</a>
         <a href="mailto:fotosafe.app@gmail.com">Support</a>
       </nav>
     </div>
