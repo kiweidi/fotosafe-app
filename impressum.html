@@ -29,15 +29,15 @@
       --canvas:#f5f8fc;
       --line:#d8e4f2;
       --shadow:0 24px 70px rgba(9,32,65,.10);
-      --font-body:"Inter","Aptos","Segoe UI Variable Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      --font-heading:"Manrope","Aptos Display","Segoe UI Variable Display","Segoe UI",var(--font-body);
+      --font-body:var(--fs-font-body);
+      --font-heading:var(--fs-font-heading);
       color:var(--ink);
       background:var(--canvas);
       font-family:var(--font-body);
       font-synthesis:none;
     }
     *,*::before,*::after{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 50% -8rem,rgba(41,143,242,.18),transparent 34rem),linear-gradient(180deg,#fff 0,var(--canvas) 55%,#fff 100%);line-height:1.65}
+    body{margin:0;background:radial-gradient(circle at 50% -8rem,rgba(41,143,242,.18),transparent 34rem),linear-gradient(180deg,#fff 0,var(--canvas) 55%,#fff 100%);font-size:16px;line-height:1.65}
     a{color:var(--blue-700);font-weight:750;text-underline-offset:.18em}
     a:hover{color:var(--blue-900)}
     a:focus-visible{outline:3px solid #f2a900;outline-offset:3px;border-radius:7px}
