@@ -14,6 +14,8 @@
   <meta property="og:url" content="https://kiweidi.github.io/fotosafe-app/usb-stick-auswaehlen.html">
   <meta name="theme-color" content="#0b3a78">
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/navigation.css">
+  <script src="assets/navigation.js" defer></script>
   <title>USB-Stick richtig auswählen — FotoSafe Hilfe</title>
   <style>
     :root {
@@ -232,12 +234,10 @@
     .category-facts { margin: 0; padding-left: 20px; color: var(--muted); }
     .product-grid { display: grid; gap: 15px; margin-top: 22px; }
     .product-card { position: relative; display: flex; min-width: 0; flex-direction: column; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(180deg, #fff, #f8fbff); }
-    .product-visual { display: grid; min-height: 106px; place-items: center; margin-bottom: 16px; border: 1px dashed #aac2df; border-radius: 14px; background: var(--blue-050); color: var(--blue-900); text-align: center; }
-    .product-visual svg { width: 34px; height: 34px; margin-bottom: 5px; }
-    .product-visual span { display: block; max-width: 18ch; font-size: 13px; font-weight: 750; }
-    .product-visual.device-visual { min-height: 206px; overflow: hidden; grid-template-rows: 1fr auto; padding: 10px 10px 8px; border-style: solid; background: radial-gradient(circle at 50% 24%, #fff 0, #edf5ff 62%, #e2efff 100%); }
-    .product-visual svg.device-art { width: 104px; height: 150px; margin: 0; filter: drop-shadow(0 14px 12px rgba(9, 34, 67, .18)); }
-    .product-visual figcaption { color: #60758f; font-size: 11px; font-weight: 700; }
+    .product-visual { position: relative; display: grid; min-height: 228px; place-items: center; overflow: hidden; margin-bottom: 16px; border: 1px solid #c9d9eb; border-radius: 14px; background: #fff; color: var(--blue-900); text-align: center; }
+    .product-image { display: block; width: 100%; height: 228px; padding: 9px; object-fit: contain; }
+    .tested-badge { position: absolute; right: 8px; bottom: 8px; z-index: 2; width: 76px; height: auto; filter: drop-shadow(0 5px 8px rgba(6, 26, 52, .32)); pointer-events: none; }
+    .recommendation-label { display: inline-flex; width: fit-content; min-height: 30px; align-items: center; margin: -2px 0 10px; padding: 4px 9px; border-radius: 999px; background: #eaf3ff; color: var(--blue-900); font-size: 11px; font-weight: 900; letter-spacing: .02em; text-transform: uppercase; }
     .product-card h4 { margin: 0 0 7px; font-family: var(--font-heading); font-size: 18px; line-height: 1.3; }
     .product-card p { margin: 0; color: var(--muted); font-size: 14px; }
     .product-meta { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; font-size: 13px; }
@@ -324,15 +324,13 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#inhalt">Direkt zum Inhalt</a>
-  <header class="site-header">
-    <div class="wrap topbar">
-      <a class="brand" href="index.html"><span class="mark" aria-hidden="true">FS</span><span>FotoSafe Hilfe</span></a>
-      <nav class="nav-links" aria-label="Hilfe-Navigation">
-        <a href="#anleitung">Anleitung</a>
-        <a href="#probleme">Fehlerhilfe</a>
-        <a href="#auswahlhilfe">Auswahlhilfe</a>
-        <a class="home-link" href="index.html">Zur App-Seite</a>
+  <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
+  <header class="fs-header">
+    <div class="fs-nav-shell">
+      <a class="fs-brand" href="index.html"><span class="fs-mark" aria-hidden="true">FS</span><span class="fs-brand-label">FotoSafe</span></a>
+      <button class="fs-menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Hauptmenü öffnen"><span class="fs-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="fs-menu-toggle-label">Menü</span></button>
+      <nav class="fs-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <a href="index.html">Startseite</a><a href="index.html#funktionen">Funktionen</a><a class="is-section-current" href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
       </nav>
     </div>
   </header>
@@ -342,6 +340,7 @@
       <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Anleitung für Android &amp; Samsung</div>
       <h1>USB-Stick <span>richtig auswählen.</span></h1>
       <p class="lead">Entscheidend ist nicht nur der Ordnername: Oben im Android-Dateidialog muss der <strong>USB-Datenträger</strong> stehen. „Galaxy S23“, „Interner Speicher“ oder „Downloads“ sind das Handy – nicht dein USB-Stick.</p>
+      <a class="fs-nav-back" href="hilfe.html"><span aria-hidden="true">←</span> Zur Hilfe-Übersicht</a>
       <nav class="jump" aria-label="Schnellzugriff">
         <a class="btn primary" href="#anleitung">Schritt für Schritt</a>
         <a class="btn secondary" href="#video">Video ansehen</a>
@@ -497,29 +496,30 @@
           <ul class="category-facts"><li>USB-C auf USB-A</li><li>OTG und Datenübertragung</li><li>Möglichst kompakt und passend zum Handy</li></ul>
         </div>
         <div class="product-grid">
-          <article class="product-card" data-category="otg-adapter" data-title="UGREEN OTG-Adapter mit 15-cm-Kabel" data-description="Flexibler USB-C-auf-USB-A-Adapter für klassische USB-Sticks." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B046GOmdN" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h5v8H5zM14 6h5v5h-5z"/><path d="M10 12c2.5 0 1.5-3.5 4-3.5"/></svg><span>OTG-Adapter mit kurzem Kabel</span></div></div>
-            <h4>UGREEN OTG-Adapter mit Kabel</h4>
-            <p>Die flexible 15-cm-Verbindung kann den USB-C-Anschluss des Smartphones weniger stark belasten als ein langer, starrer Aufbau.</p>
-            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C-Stecker auf USB-A-Buchse</li><li><strong>Datenrate:</strong> bis 10 Gbit/s, abwärtskompatibel</li><li><strong>Bauform:</strong> 15-cm-Kabel, Aluminiumgehäuse</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B046GOmdN" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
-          </article>
-          <article class="product-card" data-category="otg-adapter" data-title="UGREEN kompakter OTG-Adapter (2er-Pack)" data-description="Sehr kompakter USB-C-auf-USB-A-Adapter im Zweierpack." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B0chH4GHF" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M7 10v4m10-4v4M10 11h4"/></svg><span>Kompakter OTG-Adapter</span></div></div>
+          <article class="product-card" data-category="otg-adapter" data-title="UGREEN kompakter OTG-Adapter (2er-Pack)" data-description="Kompakter USB-C-auf-USB-A-Adapter, praktisch mit FotoSafe getestet." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B02yJgH09" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/otg_small.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/otg_small.webp" alt="Kompakte UGREEN USB-C-auf-USB-A-OTG-Adapter" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <span class="recommendation-label">Unsere Empfehlung</span>
             <h4>UGREEN kompakter OTG-Adapter</h4>
-            <p>Kleine, starre Ausführung im Zweierpack. Praktisch für unterwegs, sofern genug Platz um den USB-C-Anschluss vorhanden ist.</p>
-            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C-Stecker auf USB-A-Buchse</li><li><strong>Datenrate:</strong> bis 10 Gbit/s</li><li><strong>Größe:</strong> etwa 17,6 × 14,6 × 7,2 mm</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0chH4GHF" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <p>Kleine, starre Ausführung im Zweierpack. Der Adapter wurde praktisch mit FotoSafe und einem klassischen USB-A-Stick verwendet.</p>
+            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C-Stecker auf USB-A-Buchse</li><li><strong>Lieferumfang:</strong> zwei kompakte Adapter</li><li><strong>Wichtig:</strong> Genug Platz rund um den USB-C-Anschluss prüfen</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B02yJgH09" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
-          <article class="product-card" data-category="otg-adapter" data-title="UGREEN Adapter-Set (4er-Pack)" data-description="Gemischtes Set mit USB-C-auf-USB-A- und USB-A-auf-USB-C-Adaptern." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B09xxG5UZ" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="8" height="6" rx="1.5"/><rect x="13" y="12" width="8" height="6" rx="1.5"/><path d="M8 16h5M11 14l2 2-2 2"/></svg><span>Gemischtes Adapter-Set</span></div></div>
+          <article class="product-card" data-category="otg-adapter" data-title="UGREEN OTG-Adapter mit 15-cm-Kabel" data-description="Flexibler USB-C-auf-USB-A-Adapter für klassische USB-Sticks." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B0bkkUR2M" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/otg_cable.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/otg_cable.webp" alt="UGREEN OTG-Adapter mit kurzem geflochtenem Kabel" width="800" height="800" loading="lazy"></div>
+            <h4>UGREEN OTG-Adapter mit Kabel</h4>
+            <p>Die flexible Verbindung kann den USB-C-Anschluss des Smartphones weniger stark belasten als ein langer, starrer Aufbau.</p>
+            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C-Stecker auf USB-A-Buchse</li><li><strong>Bauform:</strong> kurzes flexibles Kabel</li><li><strong>Status:</strong> Produktauswahl geprüft, FotoSafe-Test noch offen</li></ul>
+            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0bkkUR2M" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+          </article>
+          <article class="product-card" data-category="otg-adapter" data-title="UGREEN Adapter-Set (4er-Pack)" data-description="Gemischtes Set mit Adaptern in zwei Anschlussrichtungen, praktisch mit FotoSafe getestet." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B02tCTOlP" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/otg_set.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/otg_set.webp" alt="UGREEN Adapter-Set mit vier USB-C- und USB-A-Adaptern" width="800" height="737" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
             <h4>UGREEN Adapter-Set, 4-teilig</h4>
             <p>Das Set enthält Adapter in beide Richtungen. Für einen klassischen USB-A-Stick am Handy wird USB-C-Stecker auf USB-A-Buchse benötigt.</p>
-            <ul class="product-meta"><li><strong>Umfang:</strong> vier Adapter in zwei Anschlussrichtungen</li><li><strong>Datenrate:</strong> bis 10 Gbit/s</li><li><strong>Wichtig:</strong> Nicht jede Richtung ist für FotoSafe nötig</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B09xxG5UZ" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <ul class="product-meta"><li><strong>Umfang:</strong> vier Adapter in zwei Anschlussrichtungen</li><li><strong>Für FotoSafe:</strong> USB-C-Stecker auf USB-A-Buchse verwenden</li><li><strong>Hinweis:</strong> Anschlussrichtung vor dem Backup prüfen</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B02tCTOlP" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
         </div>
       </article>
@@ -530,29 +530,30 @@
           <ul class="category-facts"><li>Direktanschluss per USB-C</li><li>Dual-Stick für Handy und PC</li><li>Kapazität passend zur Fotomenge</li></ul>
         </div>
         <div class="product-grid">
-          <article class="product-card" data-category="usb-stick-usb-c" data-title="SanDisk Ultra Dual Drive Go 64 GB" data-description="Getesteter Dual-Stick mit USB-C und USB-A." data-compatibility-status="Mit FotoSafe getestet · Testversion nicht dokumentiert" data-tested-device="Testgerät und Android-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0bKemSMn" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h5v8H4zM15 7h5v10h-5zM9 12h6"/><path d="M17 10h1m-1 4h1"/></svg><span>Dual-Stick · 64 GB</span></div></div>
+          <article class="product-card" data-category="usb-stick-usb-c" data-title="SanDisk Ultra Dual Drive Go 64 GB" data-description="Getesteter Dual-Stick mit USB-C und USB-A." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B01aDfv9B" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usbc_64.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usbc_64.webp" alt="SanDisk Ultra Dual Drive Go mit 64 GB in der Verpackung" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
             <h4>SanDisk Ultra Dual Drive Go 64 GB</h4>
-            <p>Direkter Anschluss am USB-C-Smartphone und am klassischen USB-A-Port eines Computers. Dieses Modell wurde bereits praktisch mit FotoSafe verwendet.</p>
-            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1</li><li><strong>Lesen:</strong> laut Angebot bis 300 MB/s</li></ul>
+            <p>Direkter Anschluss am USB-C-Smartphone und am klassischen USB-A-Port eines Computers. Dieses Modell wurde praktisch mit FotoSafe verwendet.</p>
+            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Kapazität:</strong> 64 GB</li><li><strong>Bauform:</strong> drehbarer Dual-Anschluss</li></ul>
             <span class="status-label tested">Mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0bKemSMn" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B01aDfv9B" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
-          <article class="product-card" data-category="usb-stick-usb-c" data-title="SanDisk Ultra Dual Drive Go 256 GB" data-description="Getesteter Dual-Stick mit größerer Kapazität sowie USB-C und USB-A." data-compatibility-status="Mit FotoSafe getestet · Testversion nicht dokumentiert" data-tested-device="Testgerät und Android-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0ik4vNHo" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h5v8H4zM15 7h5v10h-5zM9 12h6"/><path d="M17 10h1m-1 4h1"/></svg><span>Dual-Stick · 256 GB</span></div></div>
+          <article class="product-card" data-category="usb-stick-usb-c" data-title="SanDisk Ultra Dual Drive Go 128 GB" data-description="Getesteter Dual-Stick mit USB-C, USB-A und 128 GB Kapazität." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0a8dMphz" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usbc_128.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usbc_128.webp" alt="SanDisk Ultra Dual Drive Go mit 128 GB in der Verpackung" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <h4>SanDisk Ultra Dual Drive Go 128 GB</h4>
+            <p>Getestete Mittelgröße für Foto- und Videosicherungen mit direktem USB-C-Anschluss am Smartphone und USB-A für den Computer.</p>
+            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Kapazität:</strong> 128 GB</li><li><strong>Bauform:</strong> drehbarer Dual-Anschluss</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0a8dMphz" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+          </article>
+          <article class="product-card" data-category="usb-stick-usb-c" data-title="SanDisk Ultra Dual Drive Go 256 GB" data-description="Empfohlener und getesteter Dual-Stick mit USB-C, USB-A und 256 GB Kapazität." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0iVlAQFP" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usbc_256.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usbc_256.webp" alt="SanDisk Ultra Dual Drive Go mit 256 GB in der Verpackung" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <span class="recommendation-label">Unsere Empfehlung</span>
             <h4>SanDisk Ultra Dual Drive Go 256 GB</h4>
-            <p>Größere getestete Dual-Stick-Variante für umfangreichere Foto- und Videosicherungen sowie die Übertragung zum Computer.</p>
-            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1</li><li><strong>Lesen:</strong> laut Angebot bis 400 MB/s</li></ul>
+            <p>Unsere getestete Empfehlung für größere Foto- und Videosicherungen sowie den einfachen Wechsel zwischen Smartphone und Computer.</p>
+            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Kapazität:</strong> 256 GB</li><li><strong>Bauform:</strong> drehbarer Dual-Anschluss</li></ul>
             <span class="status-label tested">Mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0ik4vNHo" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
-          </article>
-          <article class="product-card" data-category="usb-stick-usb-c" data-title="Intenso Twist Line 128 GB" data-description="Dual-Stick mit USB-C und USB-A; noch nicht mit FotoSafe getestet." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B0hDgB5uC" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h5v8H4zM15 7h5v10h-5zM9 12h6"/><path d="M17 10h1m-1 4h1"/></svg><span>Dual-Stick · 128 GB</span></div></div>
-            <h4>Intenso Twist Line 128 GB</h4>
-            <p>Dual-Stick mit drehbarem Anschlussbereich für USB-C-Smartphones und USB-A-Computer. Die individuelle FotoSafe-Prüfung steht noch aus.</p>
-            <ul class="product-meta"><li><strong>Anschlüsse:</strong> USB-C und USB-A</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1×1</li><li><strong>Datenrate:</strong> laut Hersteller bis 70 MB/s</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0hDgB5uC" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0iVlAQFP" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
         </div>
       </article>
@@ -563,29 +564,30 @@
           <ul class="category-facts"><li>OTG-Adapter am Smartphone nötig</li><li>Direkt an vielen PCs nutzbar</li><li>Dateisystem und Strombedarf prüfen</li></ul>
         </div>
         <div class="product-grid">
-          <article class="product-card" data-category="usb-stick-usb-a" data-title="Intenso Speed Line 64 GB" data-description="Klassischer USB-A-Stick für Computer und datenfähige OTG-Adapter." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B02toYcmf" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h10v7H7zM6 10h12v11H6z"/><path d="M10 6h1m2 0h1"/></svg><span>USB-A-Stick · 64 GB</span></div></div>
-            <h4>Intenso Speed Line 64 GB</h4>
-            <p>Klassischer USB-A-Stick für Computer. Am Smartphone ist zusätzlich einer der oben beschriebenen datenfähigen OTG-Adapter erforderlich.</p>
-            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1×1</li><li><strong>Datenrate:</strong> laut Hersteller bis 70 MB/s</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B02toYcmf" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+          <article class="product-card" data-category="usb-stick-usb-a" data-title="SanDisk Ultra 64 GB" data-description="Getesteter klassischer USB-A-Stick für Computer und datenfähige OTG-Adapter." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0eqjwKRY" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usba_64.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usba_64.webp" alt="SanDisk Ultra USB-A-Stick mit 64 GB" width="800" height="662" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <h4>SanDisk Ultra 64 GB</h4>
+            <p>Klassischer USB-A-Stick für Computer. Am Smartphone ist zusätzlich ein datenfähiger USB-C-OTG-Adapter erforderlich.</p>
+            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A</li><li><strong>Kapazität:</strong> 64 GB</li><li><strong>Bauform:</strong> versenkbarer USB-Stecker</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0eqjwKRY" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
-          <article class="product-card" data-category="usb-stick-usb-a" data-title="SanDisk Ultra Fit 128 GB" data-description="Sehr kompakter USB-A-Stick für einen möglichst kurzen Aufbau am OTG-Adapter." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B01Spy1zZ" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 7h8v10H5zM13 9h6v6h-6z"/><path d="M8 10h2m-2 3h2"/></svg><span>Kompakter USB-A-Stick · 128 GB</span></div></div>
-            <h4>SanDisk Ultra Fit 128 GB</h4>
-            <p>Sehr kompakte USB-A-Bauform. Dadurch bleibt der Aufbau am OTG-Adapter kurz; ein datenfähiger Adapter wird weiterhin benötigt.</p>
-            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A, kompakte Plug-and-Stay-Bauform</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1</li><li><strong>Lesen:</strong> laut Angebot bis 400 MB/s</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B01Spy1zZ" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+          <article class="product-card" data-category="usb-stick-usb-a" data-title="SanDisk Ultra 128 GB" data-description="Getesteter USB-A-Stick mit 128 GB für Computer und datenfähige OTG-Adapter." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0gbOpw9x" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usba_128.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usba_128.webp" alt="SanDisk Ultra USB-A-Stick mit 128 GB" width="800" height="546" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <h4>SanDisk Ultra 128 GB</h4>
+            <p>Getestete Mittelgröße für lokale Sicherungen. Für die Nutzung am Smartphone wird ein passender USB-C-OTG-Adapter benötigt.</p>
+            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A</li><li><strong>Kapazität:</strong> 128 GB</li><li><strong>Bauform:</strong> versenkbarer USB-Stecker</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0gbOpw9x" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
-          <article class="product-card" data-category="usb-stick-usb-a" data-title="SanDisk Ultra 512 GB" data-description="USB-A-Stick mit hoher Kapazität für größere lokale Sicherungen." data-compatibility-status="Ausgewählt · noch nicht mit FotoSafe getestet" data-tested-device="" data-affiliate-url="https://link.amazon/B045VQWoC" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <div class="product-visual" aria-hidden="true"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h10v7H7zM6 10h12v11H6z"/><path d="M10 6h1m2 0h1"/></svg><span>USB-A-Stick · 512 GB</span></div></div>
-            <h4>SanDisk Ultra 512 GB</h4>
-            <p>Große Kapazität für umfangreiche lokale Sicherungen. Für die Nutzung am Smartphone ist ein passender USB-C-OTG-Adapter erforderlich.</p>
-            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A</li><li><strong>Schnittstelle:</strong> USB 3.2 Gen 1 / USB 3.0-kompatibel</li><li><strong>Lesen:</strong> laut Hersteller bis 130 MB/s</li></ul>
-            <span class="status-label">Noch nicht mit FotoSafe getestet</span>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B045VQWoC" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+          <article class="product-card" data-category="usb-stick-usb-a" data-title="SanDisk Ultra 256 GB" data-description="Empfohlener und getesteter USB-A-Stick mit 256 GB für größere lokale Sicherungen." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Testgerät und App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B00au2AjU" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/usba_256.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/usba_256.webp" alt="SanDisk Ultra USB-A-Stick mit 256 GB" width="800" height="546" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <span class="recommendation-label">Unsere Empfehlung</span>
+            <h4>SanDisk Ultra 256 GB</h4>
+            <p>Unsere getestete USB-A-Empfehlung für größere lokale Sicherungen. Am Smartphone ist weiterhin ein OTG-Adapter erforderlich.</p>
+            <ul class="product-meta"><li><strong>Anschluss:</strong> USB-A</li><li><strong>Kapazität:</strong> 256 GB</li><li><strong>Bauform:</strong> versenkbarer USB-Stecker</li></ul>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B00au2AjU" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
         </div>
       </article>
@@ -595,67 +597,41 @@
           <div><span class="category-label">Kategorie D</span><h3 id="cat-phone-title">Geeignete Smartphones</h3><p>Das Android-Gerät muss USB-OTG und das Android Storage Access Framework unterstützen. Konkrete Empfehlungen sollen bevorzugt auf realen FotoSafe-Tests beruhen. Die Darstellung des Dateidialogs kann je nach Hersteller und Android-Version abweichen; ohne echten Test gibt es keine Aussage „garantiert kompatibel“.</p></div>
           <ul class="category-facts"><li>USB-OTG erforderlich</li><li>Android Storage Access Framework</li><li>Testgerät und Android-Version dokumentieren</li></ul>
         </div>
-        <p class="test-context"><strong>Aktueller FotoSafe-Teststand:</strong> Das HONOR 600 wurde mit FotoSafe 0.14 praktisch geprüft. Galaxy A57 5G und Galaxy S26 sind für einen Einzeltest vorgesehen. Bei den bisher geprüften Samsung-Geräten mit Android 16 sind keine FotoSafe-Fehler aufgetreten; das ist eine positive Erfahrung, aber keine pauschale Kompatibilitätsgarantie für jedes Modell oder künftige Update.</p>
+        <p class="test-context"><strong>Aktueller FotoSafe-Teststand:</strong> Galaxy A57 5G, Galaxy S26 und HONOR 600 wurden praktisch mit FotoSafe geprüft. Beim HONOR 600 ist FotoSafe 0.14 als Testversion dokumentiert; bei den beiden Samsung-Modellen ist die verwendete FotoSafe-Version nicht dokumentiert. Die Tests sind eine positive Erfahrung, aber keine pauschale Kompatibilitätsgarantie für jedes System- oder App-Update.</p>
         <div class="product-grid">
-          <article class="product-card" data-category="smartphone" data-title="Samsung Galaxy A57 5G, 128 GB" data-description="Galaxy-A-Modell in der verlinkten 128-GB-Variante; individueller FotoSafe-Test geplant." data-compatibility-status="Test mit FotoSafe geplant" data-tested-device="" data-affiliate-url="https://link.amazon/B064mTLUo" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <figure class="product-visual device-visual">
-              <svg class="device-art" viewBox="0 0 120 180" role="img" aria-label="Schematische Darstellung des Samsung Galaxy A57 5G">
-                <defs><linearGradient id="a57-body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dfe9f4"/><stop offset="1" stop-color="#a8bcd2"/></linearGradient></defs>
-                <rect x="23" y="8" width="74" height="158" rx="15" fill="url(#a57-body)" stroke="#8199b2" stroke-width="2"/>
-                <rect x="29" y="14" width="62" height="146" rx="11" fill="#c8d8e9" opacity=".42"/>
-                <g fill="#15253a" stroke="#f4f8fc" stroke-width="3"><circle cx="39" cy="35" r="9"/><circle cx="39" cy="59" r="9"/><circle cx="39" cy="83" r="9"/></g>
-                <circle cx="62" cy="36" r="3.5" fill="#f2dfad"/>
-              </svg>
-              <figcaption>Schematische Darstellung · kein Herstellerfoto</figcaption>
-            </figure>
+          <article class="product-card" data-category="smartphone" data-title="Samsung Galaxy A57 5G, 128 GB" data-description="Galaxy-A-Modell in der verlinkten 128-GB-Variante, praktisch mit FotoSafe getestet." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Galaxy A57 5G · App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B084eAPvI" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/a57.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/a57.webp" alt="Samsung Galaxy A57 5G in Dunkelblau" width="721" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
             <h4>Samsung Galaxy A57 5G</h4>
-            <p>Interessante Mittelklasse-Option mit Android 16. Der konkrete FotoSafe-Test dieses Modells folgt in den nächsten Tagen.</p>
+            <p>Das verlinkte Mittelklasse-Modell mit 128 GB wurde praktisch mit FotoSafe geprüft. Künftige System- oder App-Updates können das Verhalten verändern.</p>
             <ul class="product-meta">
               <li><strong>Display:</strong> 6,7″ FHD+ Super AMOLED+, bis 120 Hz</li>
               <li><strong>Leistung:</strong> Exynos 1680, 8 GB RAM; verlinkte Variante mit 128 GB</li>
               <li><strong>System &amp; Akku:</strong> Android 16 / One UI 8.5, 5.000 mAh, 45 W</li>
             </ul>
-            <span class="status-label planned">FotoSafe-Test geplant</span>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
             <a class="spec-source" href="https://news.samsung.com/de/samsung-stellt-galaxy-a57-5g-und-galaxy-a37-5g-vor-profi-features-zum-attraktiven-preis" target="_blank" rel="noopener noreferrer">Technische Daten bei Samsung</a>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B064mTLUo" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B084eAPvI" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
 
-          <article class="product-card" data-category="smartphone" data-title="Samsung Galaxy S26, 256 GB" data-description="Kompaktes Galaxy-S-Modell in der verlinkten 256-GB-Variante; individueller FotoSafe-Test geplant." data-compatibility-status="Test mit FotoSafe geplant" data-tested-device="" data-affiliate-url="https://link.amazon/B0cBuBUdf" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <figure class="product-visual device-visual">
-              <svg class="device-art" viewBox="0 0 120 180" role="img" aria-label="Schematische Darstellung des Samsung Galaxy S26">
-                <defs><linearGradient id="s26-body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9d97d7"/><stop offset="1" stop-color="#4c477d"/></linearGradient></defs>
-                <rect x="23" y="8" width="74" height="158" rx="15" fill="url(#s26-body)" stroke="#3e3a67" stroke-width="2"/>
-                <rect x="29" y="14" width="62" height="146" rx="11" fill="#fff" opacity=".08"/>
-                <g fill="#121526" stroke="#c8c4ef" stroke-width="2.5"><circle cx="39" cy="35" r="9"/><circle cx="39" cy="59" r="9"/><circle cx="39" cy="83" r="9"/></g>
-                <circle cx="62" cy="35" r="3.5" fill="#f4deb1"/>
-              </svg>
-              <figcaption>Schematische Darstellung · kein Herstellerfoto</figcaption>
-            </figure>
+          <article class="product-card" data-category="smartphone" data-title="Samsung Galaxy S26, 256 GB" data-description="Empfohlenes Galaxy-S-Modell in der verlinkten 256-GB-Variante, praktisch mit FotoSafe getestet." data-compatibility-status="Mit FotoSafe getestet" data-tested-device="Galaxy S26 · App-Version nicht dokumentiert" data-affiliate-url="https://link.amazon/B0a6pg7ds" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/s26.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/s26.webp" alt="Samsung Galaxy S26 auf einer hellen Holzoberfläche" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
+            <span class="recommendation-label">Unsere Empfehlung</span>
             <h4>Samsung Galaxy S26</h4>
-            <p>Kompakteres Oberklasse-Modell mit Android 16. Die bisher guten Samsung-Erfahrungen werden durch einen eigenen Modelltest abgesichert.</p>
+            <p>Unsere praktisch getestete Smartphone-Empfehlung in der verlinkten 256-GB-Variante. Die positive Erfahrung ist keine Garantie für spätere Updates.</p>
             <ul class="product-meta">
               <li><strong>Display:</strong> 6,3″ FHD+ Dynamic AMOLED 2X, adaptiv 1–120 Hz</li>
               <li><strong>Leistung:</strong> Exynos 2600, 12 GB RAM; verlinkte Variante mit 256 GB</li>
               <li><strong>System &amp; Akku:</strong> Android 16 / One UI 8.5, 4.300 mAh</li>
             </ul>
-            <span class="status-label planned">FotoSafe-Test geplant</span>
+            <span class="status-label tested">Mit FotoSafe getestet</span>
             <a class="spec-source" href="https://news.samsung.com/de/samsung-galaxy-s26-serie-das-bisher-intuitivste-galaxy-ai-smartphone" target="_blank" rel="noopener noreferrer">Technische Daten bei Samsung</a>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0cBuBUdf" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B0a6pg7ds" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
 
-          <article class="product-card" data-category="smartphone" data-title="HONOR 600, 512 GB" data-description="Mit FotoSafe 0.14 praktisch getestetes Android-Smartphone; verlinkte 512-GB-Variante, heutige Softwarestände können abweichen." data-compatibility-status="Von uns getestet · FotoSafe 0.14" data-tested-device="HONOR 600 · Android-Version beim Test nicht dokumentiert" data-affiliate-url="https://link.amazon/B005Fv257" data-link-label="Bei Amazon ansehen*" data-optional-image="" data-last-checked="2026-07-31">
-            <figure class="product-visual device-visual">
-              <svg class="device-art" viewBox="0 0 120 180" role="img" aria-label="Schematische Darstellung des HONOR 600">
-                <defs><linearGradient id="honor-body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff9d69"/><stop offset="1" stop-color="#dc6331"/></linearGradient></defs>
-                <rect x="23" y="8" width="74" height="158" rx="17" fill="url(#honor-body)" stroke="#c35027" stroke-width="2"/>
-                <rect x="29" y="14" width="62" height="146" rx="12" fill="#fff" opacity=".08"/>
-                <g fill="#182334" stroke="#ffc5a4" stroke-width="3"><circle cx="40" cy="38" r="12"/><circle cx="40" cy="70" r="12"/></g>
-                <rect x="62" y="27" width="17" height="48" rx="8" fill="#f0ae89"/><circle cx="70.5" cy="39" r="5" fill="#fff2cf"/><circle cx="70.5" cy="61" r="5" fill="#20293a"/>
-              </svg>
-              <figcaption>Schematische Darstellung · kein Herstellerfoto</figcaption>
-            </figure>
+          <article class="product-card" data-category="smartphone" data-title="HONOR 600, 512 GB" data-description="Mit FotoSafe 0.14 praktisch getestetes Android-Smartphone in der verlinkten 512-GB-Variante." data-compatibility-status="Mit FotoSafe 0.14 getestet" data-tested-device="HONOR 600 · Android-Version beim Test nicht dokumentiert" data-affiliate-url="https://link.amazon/B01MryplP" data-link-label="Bei Amazon ansehen*" data-optional-image="assets/products/honor600.webp" data-last-checked="2026-07-31">
+            <div class="product-visual"><img class="product-image" src="assets/products/honor600.webp" alt="HONOR 600 auf einer hellen Holzoberfläche" width="675" height="900" loading="lazy"><img class="tested-badge" src="assets/products/tested-badge-de.webp" alt="" aria-hidden="true" width="240" height="228"></div>
             <h4>HONOR 600</h4>
-            <p>Das Modell wurde bereits mit FotoSafe 0.14 praktisch getestet. Diese dokumentierte Erfahrung ist keine Garantie für jeden späteren System- oder App-Stand.</p>
+            <p>Das Modell wurde mit FotoSafe 0.14 praktisch getestet. Diese dokumentierte Erfahrung ist keine Garantie für jeden späteren System- oder App-Stand.</p>
             <ul class="product-meta">
               <li><strong>Display:</strong> 6,57″ AMOLED, 2728 × 1264 Pixel, bis 120 Hz</li>
               <li><strong>Leistung:</strong> Snapdragon 7 Gen 4; verlinkte Variante mit 512 GB Speicher</li>
@@ -663,7 +639,7 @@
             </ul>
             <span class="status-label tested">Mit FotoSafe 0.14 getestet</span>
             <a class="spec-source" href="https://www.honor.com/de/phones/honor-600/spec/" target="_blank" rel="noopener noreferrer">Technische Daten bei HONOR</a>
-            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B005Fv257" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
+            <span class="affiliate-label">Werbung · Affiliate-Link</span><a class="affiliate-link" href="https://link.amazon/B01MryplP" target="_blank" rel="sponsored nofollow noopener noreferrer">Bei Amazon ansehen*</a>
           </article>
         </div>
       </article>
@@ -680,7 +656,7 @@
       <span>© 2026 Peter Weitgasser · FotoSafe</span>
       <nav class="footer-links" aria-label="Footer-Navigation">
         <a href="index.html">Startseite</a>
-        <a href="usb-stick-auswaehlen.html">USB-Hilfe</a>
+        <a href="hilfe.html">Hilfe</a>
         <a href="privacy.html">Datenschutzerklärung</a>
         <a href="impressum.html">Impressum</a>
         <a href="mailto:fotosafe.app@gmail.com">Support</a>

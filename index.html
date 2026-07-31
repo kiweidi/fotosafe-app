@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="FotoSafe sichert Fotos und Videos lokal auf USB — ohne Cloud, ohne Konto, ohne Löschen der Originale.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/navigation.css">
+  <script src="assets/navigation.js" defer></script>
   <title>FotoSafe — Fotos & Videos lokal auf USB sichern</title>
   <style>
     :root{--ink:#07111f;--muted:#526379;--blue:#0b3a78;--blue2:#0f5ebd;--soft:#eef5ff;--line:#dbe7f6;--green:#187b4e;--warn:#9a5b00;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#f6f8fb}
@@ -18,14 +21,24 @@
   </style>
 </head>
 <body>
-  <main class="wrap">
+  <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
+  <header class="fs-header">
+    <div class="fs-nav-shell">
+      <a class="fs-brand" href="index.html"><span class="fs-mark" aria-hidden="true">FS</span><span class="fs-brand-label">FotoSafe</span></a>
+      <button class="fs-menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Hauptmenü öffnen"><span class="fs-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="fs-menu-toggle-label">Menü</span></button>
+      <nav class="fs-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <a href="index.html" aria-current="page">Startseite</a><a href="#funktionen">Funktionen</a><a href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+      </nav>
+    </div>
+  </header>
+  <main id="inhalt" class="wrap">
     <section class="hero">
       <div>
         <div class="pill"><span class="dot"></span> FotoSafe v0.17.1 — im geschlossenen Test</div>
         <h1>Fotos & Videos lokal auf <span>USB sichern.</span></h1>
         <p class="lead">FotoSafe führt Schritt für Schritt durch ein lokales Android-Backup auf USB-Stick oder Speicherordner — ohne Medien-Cloud, ohne FotoSafe-Konto und ohne Löschen der Originale. Ein erfolgreicher Lauf bis 100 Medien ist kostenlos; Pro ist ein einmaliger Kauf ohne Abo.</p>
         <div class="cta">
-          <a class="btn primary" href="usb-stick-auswaehlen.html">USB-Stick richtig auswählen</a>
+          <a class="btn primary" href="hilfe.html">Hilfe &amp; Anleitungen</a>
           <a class="btn secondary" href="privacy.html">Datenschutzerklärung</a>
           <a class="btn secondary" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
         </div>
@@ -38,7 +51,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="funktionen">
       <h2>Was FotoSafe macht</h2>
       <p class="section-lead">Eine einfache Zusatzsicherung für Menschen, die ihre Erinnerungen nicht nur in der Cloud haben wollen.</p>
       <div class="grid three">
@@ -100,7 +113,7 @@
       <p class="section-lead">FotoSafe wird mit Sorgfalt entwickelt, kann aber keine Garantie geben, dass jedes Backup auf jedem Gerät, Android-System, Kabel, Adapter oder USB-Stick vollständig und fehlerfrei abgeschlossen wird. Die Nutzung erfolgt eigenverantwortlich. Bitte prüfe wichtige Sicherungen am Zielmedium und bewahre mindestens eine weitere Kopie deiner wichtigen Fotos und Videos auf.</p>
     </section>
 
-    <p class="footer">© 2026 Peter Weitgasser · FotoSafe · <a href="usb-stick-auswaehlen.html">USB-Hilfe</a> · <a href="privacy.html">Datenschutzerklärung</a> · <a href="impressum.html">Impressum</a></p>
+    <p class="footer">© 2026 Peter Weitgasser · FotoSafe · <a href="hilfe.html">Hilfe</a> · <a href="privacy.html">Datenschutzerklärung</a> · <a href="impressum.html">Impressum</a></p>
   </main>
 </body>
 </html>

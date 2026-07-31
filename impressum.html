@@ -14,6 +14,8 @@
   <meta property="og:url" content="https://kiweidi.github.io/fotosafe-app/impressum.html">
   <meta name="theme-color" content="#0b3a78">
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/navigation.css">
+  <script src="assets/navigation.js" defer></script>
   <title>Impressum — FotoSafe</title>
   <style>
     :root {
@@ -70,11 +72,14 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#inhalt">Direkt zum Inhalt</a>
-  <header class="site-header">
-    <div class="wrap topbar">
-      <a class="brand" href="index.html"><span class="mark" aria-hidden="true">FS</span><span>FotoSafe</span></a>
-      <a class="back" href="index.html">← Zur Startseite</a>
+  <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
+  <header class="fs-header">
+    <div class="fs-nav-shell">
+      <a class="fs-brand" href="index.html"><span class="fs-mark" aria-hidden="true">FS</span><span class="fs-brand-label">FotoSafe</span></a>
+      <button class="fs-menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Hauptmenü öffnen"><span class="fs-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="fs-menu-toggle-label">Menü</span></button>
+      <nav class="fs-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <a href="index.html">Startseite</a><a href="index.html#funktionen">Funktionen</a><a href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html" aria-current="page">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+      </nav>
     </div>
   </header>
 
@@ -117,7 +122,7 @@
       <span>© 2026 Peter Weitgasser · FotoSafe</span>
       <nav class="footer-links" aria-label="Footer-Navigation">
         <a href="index.html">Startseite</a>
-        <a href="usb-stick-auswaehlen.html">USB-Hilfe</a>
+        <a href="hilfe.html">Hilfe</a>
         <a href="privacy.html">Datenschutzerklärung</a>
         <a href="impressum.html" aria-current="page">Impressum</a>
       </nav>
