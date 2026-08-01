@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/navigation.css">
   <script src="assets/navigation.js" defer></script>
+  <script type="module" src="assets/privacy-analytics.js"></script>
   <title>FotoSafe — Fotos & Videos lokal auf USB sichern</title>
   <style>
     :root{--ink:#07111f;--muted:#526379;--blue:#0b3a78;--blue2:#0f5ebd;--soft:#eef5ff;--line:#dbe7f6;--green:#187b4e;--warn:#9a5b00;font-family:var(--fs-font-body);font-size:16px;font-synthesis:none;color:var(--ink);background:#f6f8fb}
@@ -17,17 +18,17 @@
     .card{background:white;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:0 18px 60px rgba(15,23,42,.08)}.mock{min-height:420px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#eaf4ff,#fff);overflow:hidden}.phone{width:255px;border-radius:34px;background:#101827;padding:10px;box-shadow:0 24px 70px rgba(6,21,43,.22);transform:rotate(2deg)}.phone.small{width:190px;transform:none}.screen{border-radius:26px;background:white;overflow:hidden}.screen img{display:block;width:100%;height:auto}.shot-card{padding:12px}.shot-card p{margin:10px 4px 0;color:var(--muted);font-size:14px;line-height:1.4;font-weight:700}.shot-card .phone{margin:0 auto}
     .grid{display:grid;gap:16px;margin-top:22px}@media(min-width:760px){.grid.three{grid-template-columns:repeat(3,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}}.feature h3{margin:0 0 8px;font-size:21px}.feature p{margin:0;color:var(--muted);line-height:1.55}.icon{width:42px;height:42px;border-radius:15px;background:var(--soft);display:grid;place-items:center;color:var(--blue);font-weight:900;margin-bottom:12px}
     .section{margin-top:34px}.section h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1.3px;margin:0 0 12px}.section-lead{color:var(--muted);font-size:18px;line-height:1.55;margin:0}.facts{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:16px;overflow:hidden;border-radius:18px}.facts td,.facts th{border:1px solid var(--line);padding:12px;text-align:left;vertical-align:top;overflow-wrap:anywhere}.facts th{width:34%;background:var(--soft)}
-    .status{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#fff7df;color:var(--warn);border:1px solid #f3d37a;font-weight:800}.footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}.small{font-size:14px;color:var(--muted);line-height:1.5}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}@media(max-width:480px){.facts,.facts tbody,.facts tr,.facts th,.facts td{display:block;width:100%}.facts{border:1px solid var(--line)}.facts tr+tr{border-top:1px solid var(--line)}.facts td,.facts th{border:0;padding:10px 12px}.facts th{padding-bottom:4px;font-size:14px}.facts td{padding-top:4px}.status{display:block;border-radius:14px;padding:8px 10px}}
+    .status{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#fff7df;color:var(--warn);border:1px solid #f3d37a;font-weight:800}.footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}.small{font-size:14px;color:var(--muted);line-height:1.5}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.faq-grid{display:grid;align-items:start;gap:10px;margin-top:18px}.faq-grid details{border:1px solid var(--line);border-radius:16px;background:#fff}.faq-grid summary{min-height:52px;padding:14px 18px;cursor:pointer;color:var(--ink);font-family:var(--fs-font-heading);font-weight:800}.faq-grid details p{margin:0;padding:0 18px 17px}.faq-grid summary:focus-visible{outline:3px solid #f2a900;outline-offset:3px;border-radius:14px}@media(min-width:760px){.faq-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.facts,.facts tbody,.facts tr,.facts th,.facts td{display:block;width:100%}.facts{border:1px solid var(--line)}.facts tr+tr{border-top:1px solid var(--line)}.facts td,.facts th{border:0;padding:10px 12px}.facts th{padding-bottom:4px;font-size:14px}.facts td{padding-top:4px}.status{display:block;border-radius:14px;padding:8px 10px}}
   </style>
 </head>
-<body>
+<body data-page-id="home" data-scroll-article-id="home_faq">
   <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
   <header class="fs-header">
     <div class="fs-nav-shell">
       <a class="fs-brand" href="index.html"><img class="fs-app-icon" src="assets/fotosafe-app-icon.png" alt="" width="42" height="42"><span class="fs-brand-label">FotoSafe</span></a>
       <button class="fs-menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Hauptmenü öffnen"><span class="fs-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="fs-menu-toggle-label">Menü</span></button>
       <nav class="fs-nav" id="hauptnavigation" aria-label="Hauptnavigation">
-        <a href="index.html" aria-current="page">Startseite</a><a href="#funktionen">Funktionen</a><a href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+        <a href="index.html" aria-current="page" data-to-page-id="home" data-position-id="nav_home">Startseite</a><a href="hilfe.html" data-to-page-id="help" data-position-id="nav_help">Hilfe</a><a href="support.html" data-to-page-id="support" data-position-id="nav_support">Support</a><a href="privacy.html" data-to-page-id="privacy" data-position-id="nav_privacy">Datenschutz</a><a href="impressum.html" data-to-page-id="imprint" data-position-id="nav_imprint">Impressum</a>
       </nav>
     </div>
   </header>
@@ -38,9 +39,9 @@
         <h1>Fotos & Videos lokal auf <span>USB sichern.</span></h1>
         <p class="lead">FotoSafe führt Schritt für Schritt durch ein lokales Android-Backup auf USB-Stick oder Speicherordner — ohne Medien-Cloud, ohne FotoSafe-Konto und ohne Löschen der Originale. Ein erfolgreicher Lauf bis 100 Medien ist kostenlos; Pro ist ein einmaliger Kauf ohne Abo.</p>
         <div class="cta">
-          <a class="btn primary" href="hilfe.html">Hilfe &amp; Anleitungen</a>
-          <a class="btn secondary" href="privacy.html">Datenschutzerklärung</a>
-          <a class="btn secondary" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+          <a class="btn primary" href="hilfe.html" data-to-page-id="help" data-position-id="hero_help">Hilfe &amp; Anleitungen</a>
+          <a class="btn secondary" href="privacy.html" data-to-page-id="privacy" data-position-id="hero_privacy">Datenschutzerklärung</a>
+          <a class="btn secondary" href="support.html" data-to-page-id="support" data-position-id="hero_support">Support</a>
         </div>
         <p class="small" style="margin-top:14px">FotoSafe 0.17.2 ist im geschlossenen Google-Play-Test veröffentlicht. Der Produktionszugang wird derzeit von Google geprüft.</p>
       </div>
@@ -74,7 +75,7 @@
     <section class="section grid two">
       <div class="card">
         <h2>Privat bleibt privat</h2>
-        <p class="section-lead">Kein Foto-/Video-Upload, kein FotoSafe-Konto, keine Werbung, kein Tracking und keine von FotoSafe konfigurierten Analytics-/Crash-SDKs. Der optionale Pro-Kauf wird von Google Play abgewickelt.</p>
+        <p class="section-lead">Die FotoSafe-App bleibt ohne Foto-/Video-Upload, FotoSafe-Konto, Werbung, Tracking oder Analytics-/Crash-SDKs. Nur diese Website kann nach freiwilliger Zustimmung eine datensparsame Statistik laden. Der optionale Pro-Kauf wird von Google Play abgewickelt.</p>
       </div>
       <div class="card">
         <h2>Für Play vorbereitet</h2>
@@ -89,22 +90,22 @@
         <tr><th>Paketname</th><td><span class="mono">at.weidi.fotobackup</span></td></tr>
         <tr><th>Version</th><td>0.17.2 / Version Code 34</td></tr>
         <tr><th>Plattform</th><td>Android 9+ / Target SDK 36 / Kotlin / native Android</td></tr>
-        <tr><th>Support</th><td><a href="mailto:fotosafe.app@gmail.com">fotosafe.app@gmail.com</a></td></tr>
+        <tr><th>Support</th><td><a href="support.html" data-to-page-id="support" data-position-id="hero_support">Hilfe und Kontakt</a></td></tr>
         <tr><th>Tests</th><td>108 JVM-Tests; reale Geräteprüfungen unter anderem auf Samsung S23 und Galaxy A53 mit Android 16 / API 36</td></tr>
         <tr><th>Play-Status</th><td><span class="status">0.17.2 im geschlossenen Test · Produktionszugang in Prüfung</span></td></tr>
       </table>
     </section>
 
-    <section class="section card">
+    <section class="section card" data-article-id="home_faq">
       <h2>FAQ & wichtige Nutzungshinweise</h2>
-      <div class="grid two">
-        <div><h3>Warum Medienzugriff?</h3><p class="small">FotoSafe muss Fotos und Videos lokal lesen können, um sie auf das gewählte Ziel zu kopieren.</p></div>
-        <div><h3>Warum USB-Ordner wählen?</h3><p class="small">Android verlangt externen Speicher über den System-Dateidialog. FotoSafe schreibt danach in <span class="mono">/FotoSafe/</span>. <a href="hilfe.html#auswahlhilfe">Zur bebilderten Anleitung</a></p></div>
-        <div><h3>Werden Daten hochgeladen?</h3><p class="small">Nein. Die Sicherung läuft lokal auf dem Gerät und dem gewählten Speicherziel.</p></div>
-        <div><h3>Was kostet FotoSafe?</h3><p class="small">Ein erfolgreicher Lauf mit bis zu 100 Medien ist kostenlos. Unbegrenzte Backup-Läufe werden mit dem einmaligen Google-Play-Kauf FotoSafe Pro freigeschaltet. Kein Abo.</p></div>
-        <div><h3>Was bei großen Backups?</h3><p class="small">Android kann lange Hintergrundvorgänge begrenzen. Bereits kopierte Dateien bleiben erhalten und werden beim nächsten Lauf übersprungen.</p></div>
-        <div><h3>Was, wenn Handy oder USB-Stick ausfallen?</h3><p class="small">Ein Backup kann unvollständig bleiben, wenn Akku, Gerät, Android, Kabel, Adapter oder USB-Stick während der Sicherung ausfallen. Bitte Handy ausreichend laden, USB-Stick nicht abziehen und das Ergebnis prüfen.</p></div>
-        <div><h3>Worauf sollte ich mich verlassen?</h3><p class="small">FotoSafe ist eine zusätzliche Sicherung. Bitte behalte wichtige Fotos auch an anderer Stelle und lösche Originale erst, wenn du die Kopien am USB-Stick geprüft hast.</p></div>
+      <div class="faq-grid">
+        <details data-faq-id="media_access"><summary>Warum Medienzugriff?</summary><p class="small">FotoSafe muss Fotos und Videos lokal lesen können, um sie auf das gewählte Ziel zu kopieren.</p></details>
+        <details data-faq-id="usb_folder"><summary>Warum USB-Ordner wählen?</summary><p class="small">Android verlangt externen Speicher über den System-Dateidialog. FotoSafe schreibt danach in <span class="mono">/FotoSafe/</span>. <a href="hilfe.html#auswahlhilfe">Zur bebilderten Anleitung</a></p></details>
+        <details data-faq-id="data_upload"><summary>Werden Daten hochgeladen?</summary><p class="small">Nein. Die Sicherung läuft lokal auf dem Gerät und dem gewählten Speicherziel.</p></details>
+        <details data-faq-id="pricing"><summary>Was kostet FotoSafe?</summary><p class="small">Ein erfolgreicher Lauf mit bis zu 100 Medien ist kostenlos. Unbegrenzte Backup-Läufe werden mit dem einmaligen Google-Play-Kauf FotoSafe Pro freigeschaltet. Kein Abo.</p></details>
+        <details data-faq-id="large_backup"><summary>Was bei großen Backups?</summary><p class="small">Android kann lange Hintergrundvorgänge begrenzen. Bereits kopierte Dateien bleiben erhalten und werden beim nächsten Lauf übersprungen.</p></details>
+        <details data-faq-id="hardware_failure"><summary>Was, wenn Handy oder USB-Stick ausfallen?</summary><p class="small">Ein Backup kann unvollständig bleiben, wenn Akku, Gerät, Android, Kabel, Adapter oder USB-Stick während der Sicherung ausfallen. Bitte Handy ausreichend laden, USB-Stick nicht abziehen und das Ergebnis prüfen.</p></details>
+        <details data-faq-id="backup_strategy"><summary>Worauf sollte ich mich verlassen?</summary><p class="small">FotoSafe ist eine zusätzliche Sicherung. Bitte behalte wichtige Fotos auch an anderer Stelle und lösche Originale erst, wenn du die Kopien am USB-Stick geprüft hast.</p></details>
       </div>
     </section>
 
@@ -113,7 +114,7 @@
       <p class="section-lead">FotoSafe wird mit Sorgfalt entwickelt, kann aber keine Garantie geben, dass jedes Backup auf jedem Gerät, Android-System, Kabel, Adapter oder USB-Stick vollständig und fehlerfrei abgeschlossen wird. Die Nutzung erfolgt eigenverantwortlich. Bitte prüfe wichtige Sicherungen am Zielmedium und bewahre mindestens eine weitere Kopie deiner wichtigen Fotos und Videos auf.</p>
     </section>
 
-    <p class="footer">© 2026 Peter Weitgasser · FotoSafe · <a href="hilfe.html">Hilfe</a> · <a href="privacy.html">Datenschutzerklärung</a> · <a href="impressum.html">Impressum</a></p>
+    <p class="footer">© 2026 Peter Weitgasser · FotoSafe · <a href="hilfe.html">Hilfe</a> · <a href="support.html">Support</a> · <a href="privacy.html">Datenschutzerklärung</a> · <a href="impressum.html">Impressum</a></p>
   </main>
 </body>
 </html>

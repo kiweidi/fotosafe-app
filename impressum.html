@@ -16,6 +16,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/navigation.css">
   <script src="assets/navigation.js" defer></script>
+  <script type="module" src="assets/privacy-analytics.js"></script>
   <title>Impressum — FotoSafe</title>
   <style>
     :root {
@@ -71,14 +72,14 @@
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
 </head>
-<body>
+<body data-page-id="imprint">
   <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
   <header class="fs-header">
     <div class="fs-nav-shell">
       <a class="fs-brand" href="index.html"><img class="fs-app-icon" src="assets/fotosafe-app-icon.png" alt="" width="42" height="42"><span class="fs-brand-label">FotoSafe</span></a>
       <button class="fs-menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" aria-label="Hauptmenü öffnen"><span class="fs-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="fs-menu-toggle-label">Menü</span></button>
       <nav class="fs-nav" id="hauptnavigation" aria-label="Hauptnavigation">
-        <a href="index.html">Startseite</a><a href="index.html#funktionen">Funktionen</a><a href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html" aria-current="page">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+        <a href="index.html" data-to-page-id="home" data-position-id="nav_home">Startseite</a><a href="hilfe.html" data-to-page-id="help" data-position-id="nav_help">Hilfe</a><a href="support.html" data-to-page-id="support" data-position-id="nav_support">Support</a><a href="privacy.html" data-to-page-id="privacy" data-position-id="nav_privacy">Datenschutz</a><a href="impressum.html" aria-current="page" data-to-page-id="imprint" data-position-id="nav_imprint">Impressum</a>
       </nav>
     </div>
   </header>
@@ -101,7 +102,7 @@
 
       <section aria-labelledby="kontakt-title">
         <h2 id="kontakt-title">Kontakt</h2>
-        <p>E-Mail: <a class="contact-link" href="mailto:fotosafe.app@gmail.com">fotosafe.app@gmail.com</a></p>
+        <p>E-Mail: <a class="contact-link" href="mailto:fotosafe.app@gmail.com" data-position-id="footer_support">fotosafe.app@gmail.com</a></p>
       </section>
 
       <section aria-labelledby="ausrichtung-title">
@@ -123,6 +124,7 @@
       <nav class="footer-links" aria-label="Footer-Navigation">
         <a href="index.html">Startseite</a>
         <a href="hilfe.html">Hilfe</a>
+        <a href="support.html">Support</a>
         <a href="privacy.html">Datenschutzerklärung</a>
         <a href="impressum.html" aria-current="page">Impressum</a>
       </nav>

@@ -8,6 +8,7 @@
   <link rel="canonical" href="https://kiweidi.github.io/fotosafe-app/hilfe.html#auswahlhilfe">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/navigation.css">
+  <script type="module" src="assets/privacy-analytics.js"></script>
   <style>.redirect-main{max-width:760px;margin:80px auto;padding:24px}</style>
   <script>
     const target = new URL('hilfe.html', window.location.href);
@@ -16,13 +17,13 @@
   </script>
   <title>FotoSafe Hilfe wird geöffnet</title>
 </head>
-<body>
+<body data-page-id="legacy_select">
   <a class="fs-skip" href="#inhalt">Direkt zum Inhalt</a>
   <header class="fs-header">
     <div class="fs-nav-shell">
       <a class="fs-brand" href="index.html"><img class="fs-app-icon" src="assets/fotosafe-app-icon.png" alt="" width="42" height="42"><span class="fs-brand-label">FotoSafe</span></a>
       <nav class="fs-nav" aria-label="Hauptnavigation">
-        <a href="index.html">Startseite</a><a href="index.html#funktionen">Funktionen</a><a class="is-section-current" href="hilfe.html">Hilfe</a><a href="privacy.html">Datenschutz</a><a href="impressum.html">Impressum</a><a class="fs-support" href="mailto:fotosafe.app@gmail.com">Support kontaktieren</a>
+        <a href="index.html" data-to-page-id="home" data-position-id="nav_home">Startseite</a><a class="is-section-current" href="hilfe.html" data-to-page-id="help" data-position-id="nav_help">Hilfe</a><a href="support.html" data-to-page-id="support" data-position-id="nav_support">Support</a><a href="privacy.html" data-to-page-id="privacy" data-position-id="nav_privacy">Datenschutz</a><a href="impressum.html" data-to-page-id="imprint" data-position-id="nav_imprint">Impressum</a>
       </nav>
     </div>
   </header>
