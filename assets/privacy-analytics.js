@@ -146,6 +146,25 @@ function browserEnvironment(config, onReady, onLoadError) {
   };
 }
 
+const CONSENT_COPY = {
+  de: {
+    settings: 'Datenschutz-Einstellungen', eyebrow: 'Optionale Website-Statistik', title: 'Du entscheidest.',
+    description: 'Mit deiner Zustimmung hilft uns eine datensparsame Statistik, Hilfeartikel und gekennzeichnete Affiliate-Empfehlungen zu verbessern. Keine Fotos, Videos, Supporttexte oder vollständigen Ziel-URLs werden erfasst. Die FotoSafe-App bleibt trackingfrei.',
+    privacySignal: 'Dein Browser sendet ein Datenschutzsignal (GPC/DNT). Statistik bleibt deshalb ausgeschaltet.',
+    current: 'Aktuelle Auswahl:', accepted: 'Statistik erlaubt', rejected: 'Statistik abgelehnt', details: 'Details in der Datenschutzerklärung', deny: 'Ablehnen', accept: 'Statistik erlauben', privacyHref: 'privacy.html#websiteanalyse',
+  },
+  en: {
+    settings: 'Privacy settings', eyebrow: 'Optional website statistics', title: 'The choice is yours.',
+    description: 'With your consent, privacy-friendly statistics help us improve help articles and clearly labelled affiliate recommendations. No photos, videos, support messages or full destination URLs are collected. The FotoSafe app remains tracking-free.',
+    privacySignal: 'Your browser is sending a privacy signal (GPC/DNT), so statistics remain disabled.',
+    current: 'Current choice:', accepted: 'Statistics allowed', rejected: 'Statistics declined', details: 'Details in the privacy notice', deny: 'Decline', accept: 'Allow statistics', privacyHref: 'privacy.html#website-analytics',
+  },
+};
+
+function localizedConsentCopy() {
+  return CONSENT_COPY[document.documentElement.lang?.toLowerCase().startsWith('en') ? 'en' : 'de'];
+}
+
 function appendSettingsButton(openSettings) {
   const footer = document.querySelector('.footer-links, footer, .footer');
   if (!footer) return null;
@@ -154,7 +173,7 @@ function appendSettingsButton(openSettings) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'fs-privacy-settings';
-  button.textContent = 'Datenschutz-Einstellungen';
+  button.textContent = localizedConsentCopy().settings;
   button.addEventListener('click', openSettings);
   footer.append(button);
   return button;
@@ -168,19 +187,20 @@ function createConsentPanel({onAccept, onReject, privacySignal, existingChoice, 
   panel.setAttribute('aria-labelledby', 'fs-consent-title');
   // The template contains only static application copy; the one displayed status is
   // selected by a strict accepted/rejected branch and never interpolates stored text.
+  const copy = localizedConsentCopy();
   panel.innerHTML = `
     <div class="fs-consent__content">
       <div>
-        <p class="fs-consent__eyebrow">Optionale Website-Statistik</p>
-        <h2 id="fs-consent-title">Du entscheidest.</h2>
-        <p>Mit deiner Zustimmung hilft uns eine datensparsame Statistik, Hilfeartikel und gekennzeichnete Affiliate-Empfehlungen zu verbessern. Keine Fotos, Videos, Supporttexte oder vollständigen Ziel-URLs werden erfasst. Die FotoSafe-App bleibt trackingfrei.</p>
-        ${privacySignal ? '<p class="fs-consent__signal" role="status">Dein Browser sendet ein Datenschutzsignal (GPC/DNT). Statistik bleibt deshalb ausgeschaltet.</p>' : ''}
-        ${existingChoice ? `<p class="fs-consent__status">Aktuelle Auswahl: <strong>${existingChoice === 'accepted' ? 'Statistik erlaubt' : 'Statistik abgelehnt'}</strong></p>` : ''}
-        <a href="privacy.html#websiteanalyse">Details in der Datenschutzerklärung</a>
+        <p class="fs-consent__eyebrow">${copy.eyebrow}</p>
+        <h2 id="fs-consent-title">${copy.title}</h2>
+        <p>${copy.description}</p>
+        ${privacySignal ? `<p class="fs-consent__signal" role="status">${copy.privacySignal}</p>` : ''}
+        ${existingChoice ? `<p class="fs-consent__status">${copy.current} <strong>${existingChoice === 'accepted' ? copy.accepted : copy.rejected}</strong></p>` : ''}
+        <a href="${copy.privacyHref}">${copy.details}</a>
       </div>
       <div class="fs-consent__actions">
-        <button class="fs-consent__reject" type="button">Ablehnen</button>
-        <button class="fs-consent__accept" type="button" ${privacySignal ? 'disabled aria-disabled="true"' : ''}>Statistik erlauben</button>
+        <button class="fs-consent__reject" type="button">${copy.deny}</button>
+        <button class="fs-consent__accept" type="button" ${privacySignal ? 'disabled aria-disabled="true"' : ''}>${copy.accept}</button>
       </div>
     </div>`;
   const close = (action) => {

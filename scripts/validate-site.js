@@ -1,11 +1,11 @@
 import {readFile, readdir, access} from 'node:fs/promises';
-import {resolve, dirname} from 'node:path';
+import {resolve, dirname, relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {ANALYTICS_CONFIG} from '../assets/analytics-config.js';
 import {isProviderConfigured} from '../assets/privacy-analytics.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const files = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
+const files = (await readdir(root, {recursive: true})).filter((name) => name.endsWith('.html')).sort();
 const failures = [];
 let checkedLinks = 0;
 
@@ -27,7 +27,7 @@ for (const name of files) {
     }
     checkedLinks += 1;
     const [filePart, fragment] = target.split('#', 2);
-    const localPath = resolve(root, filePart || name);
+    const localPath = resolve(dirname(path), filePart || name.split('/').at(-1));
     try {
       await access(localPath);
     } catch {
@@ -37,7 +37,7 @@ for (const name of files) {
     if (fragment && localPath.endsWith('.html')) {
       const targetHtml = await readFile(localPath, 'utf8');
       if (!new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(targetHtml)) {
-        failures.push(`${name}: missing fragment ${target}`);
+        failures.push(`${name}: missing fragment ${target} in ${relative(root, localPath)}`);
       }
     }
   }
