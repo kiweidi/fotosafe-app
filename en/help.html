@@ -349,6 +349,7 @@
       <p class="video-note">Screenshots and videos are currently available in German only. You can view them on the <a href="../hilfe.html" lang="de">German help page</a>.</p>
       <nav class="jump" aria-label="Quick links">
         <a class="btn primary" href="#anleitung">Step by step</a>
+        <a class="btn secondary" href="#media-access">Media access</a>
         <a class="btn secondary" href="#video">View video guidance</a>
         <a class="btn secondary" href="#otg">Understand OTG</a>
         <a class="btn secondary" href="#probleme">Resolve USB errors</a>
@@ -359,6 +360,16 @@
     <section class="decision" aria-label="Identifying the correct and incorrect storage destination">
       <article class="decision-card good"><span class="signal" aria-hidden="true">✓</span><strong>Correct</strong><p>The name of the USB storage appears at the top, for example <b>USB drive</b>, <b>USB storage device</b> or the drive’s own name.</p></article>
       <article class="decision-card bad"><span class="signal" aria-hidden="true">!</span><strong>Incorrect</strong><p>The top shows <b>Galaxy S23</b>, <b>Internal storage</b> or a phone folder. In that case, the backup would be stored on the smartphone again.</p></article>
+    </section>
+
+    <section class="section" id="media-access" aria-labelledby="media-access-title" data-article-id="help_media_access">
+      <h2 id="media-access-title">Media access and app settings</h2>
+      <p class="section-lead">With Partial access, FotoSafe shows only the selected photos and videos. Full access is recommended for complete backups. However, FotoSafe can never grant it automatically; you always confirm it in Android's app settings.</p>
+      <div class="trouble">
+        <article class="card"><h3>Directly from FotoSafe 0.18.0</h3><p>When partial access is active, tap <b>“Enable full access (recommended)”</b> in FotoSafe. FotoSafe opens the app details. Under the photo and video permissions, select full access.</p></article>
+        <article class="card"><h3>Manually in Android settings, for example on Samsung devices</h3><p>Open <b>Settings &gt; Apps &gt; FotoSafe &gt; Permissions &gt; Photos and videos</b> and allow full access. The visible labels and menu sequence can differ by manufacturer and Android version and may therefore vary from this path.</p></article>
+        <article class="card"><h3>Check afterwards</h3><p>Return to FotoSafe. The app then shows the detected <b>full access</b> status and requires you to <b>rescan the selection</b>. Only then will the selection include the additional accessible media.</p></article>
+      </div>
     </section>
 
     <section class="section" id="video" aria-labelledby="video-title" data-article-id="help_video">

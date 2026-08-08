@@ -32,6 +32,40 @@ test('privacy page distinguishes the tracking-free app from optional website sta
   assert.match(source, /IP-Adresse/);
 });
 
+test('localized help pages explain media access recovery with stable fragments', async () => {
+  const de = await html('hilfe.html');
+  const en = await html('en/help.html');
+
+  assert.match(de, /<a\b[^>]*href="#medienzugriff"[^>]*>Medienzugriff<\/a>/);
+  assert.match(en, /<a\b[^>]*href="#media-access"[^>]*>Media access<\/a>/);
+
+  const deSection = de.match(/<section\b(?=[^>]*\bid="medienzugriff")[^>]*>[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(deSection, /aria-labelledby="medienzugriff-title"/);
+  assert.match(deSection, /data-article-id="help_media_access"/);
+  assert.match(deSection, /Medienzugriff und App-Einstellungen/);
+  assert.match(deSection, /Manuell in den Android-Einstellungen, zum Beispiel auf Samsung-Geräten/);
+  assert.match(deSection, /Teilzugriff[\s\S]*nur die ausgewählten (?:Fotos und Videos|Medien)/i);
+  assert.match(deSection, /Vollzugriff[\s\S]*vollständige Backups[\s\S]*(?:nicht|nie) automatisch gewähren/i);
+  assert.match(deSection, /FotoSafe 0\.18\.0[\s\S]*Vollzugriff aktivieren \(empfohlen\)[\s\S]*App-Details/);
+  assert.match(deSection, /Einstellungen[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Berechtigungen[\s\S]*Fotos und Videos/);
+  assert.match(deSection, /Bezeichnungen[\s\S]*(?:Hersteller|Android-Version)[\s\S]*abweichen/i);
+  assert.match(deSection, /zurück zu FotoSafe[\s\S]*zeigt[\s\S]*Vollzugriff[\s\S]*Auswahl neu scannen/i);
+  assert.doesNotMatch(deSection, /tippe auf[^<]*Vollzugriff prüfen/i);
+
+  const enSection = en.match(/<section\b(?=[^>]*\bid="media-access")[^>]*>[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(enSection, /aria-labelledby="media-access-title"/);
+  assert.match(enSection, /data-article-id="help_media_access"/);
+  assert.match(enSection, /Media access and app settings/);
+  assert.match(enSection, /Manually in Android settings, for example on Samsung devices/);
+  assert.match(enSection, /Partial access[\s\S]*only the selected (?:photos and videos|media)/i);
+  assert.match(enSection, /Full access[\s\S]*complete backups[\s\S]*(?:cannot|never) grant it automatically/i);
+  assert.match(enSection, /FotoSafe 0\.18\.0[\s\S]*Enable full access \(recommended\)[\s\S]*app details/i);
+  assert.match(enSection, /Settings[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Permissions[\s\S]*Photos and videos/);
+  assert.match(enSection, /labels[\s\S]*(?:manufacturer|Android version)[\s\S]*vary/i);
+  assert.match(enSection, /return to FotoSafe[\s\S]*shows[\s\S]*full access[\s\S]*rescan the selection/i);
+  assert.doesNotMatch(enSection, /tap[^<]*check full access/i);
+});
+
 test('help products use stable non-text identifiers and sponsored links', async () => {
   const source = await html('hilfe.html');
   const cards = [...source.matchAll(/<article class="product-card"[^>]*>/g)].map((match) => match[0]);
