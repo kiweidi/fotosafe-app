@@ -1,6 +1,6 @@
 const pages = ['home', 'help', 'support', 'privacy', 'imprint', 'not_found', 'legacy_select'];
 const languages = ['de', 'en'];
-const articles = ['help_video', 'help_otg', 'help_steps', 'help_troubleshooting', 'help_selection', 'home_faq'];
+const articles = ['help_media_access', 'help_video', 'help_otg', 'help_steps', 'help_troubleshooting', 'help_selection', 'home_faq'];
 const products = [
   'otg_compact_2p', 'otg_cable_15cm', 'otg_set_4p',
   'usbc_dual_64', 'usbc_dual_128', 'usbc_dual_256',

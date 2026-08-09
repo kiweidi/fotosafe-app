@@ -49,7 +49,7 @@ test('localized help pages explain media access recovery with stable fragments',
   assert.match(deSection, /FotoSafe 0\.18\.0[\s\S]*Vollzugriff aktivieren \(empfohlen\)[\s\S]*App-Details/);
   assert.match(deSection, /Einstellungen[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Berechtigungen[\s\S]*Fotos und Videos/);
   assert.match(deSection, /Bezeichnungen[\s\S]*(?:Hersteller|Android-Version)[\s\S]*abweichen/i);
-  assert.match(deSection, /zurück zu FotoSafe[\s\S]*zeigt[\s\S]*Vollzugriff[\s\S]*Auswahl neu scannen/i);
+  assert.match(deSection, /FotoSafe[\s\S]*Vollzugriff[\s\S]*Auswahl prüfen/i);
   assert.doesNotMatch(deSection, /tippe auf[^<]*Vollzugriff prüfen/i);
 
   const enSection = en.match(/<section\b(?=[^>]*\bid="media-access")[^>]*>[\s\S]*?<\/section>/)?.[0] ?? '';
@@ -62,7 +62,7 @@ test('localized help pages explain media access recovery with stable fragments',
   assert.match(enSection, /FotoSafe 0\.18\.0[\s\S]*Enable full access \(recommended\)[\s\S]*app details/i);
   assert.match(enSection, /Settings[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Permissions[\s\S]*Photos and videos/);
   assert.match(enSection, /labels[\s\S]*(?:manufacturer|Android version)[\s\S]*vary/i);
-  assert.match(enSection, /return to FotoSafe[\s\S]*shows[\s\S]*full access[\s\S]*rescan the selection/i);
+  assert.match(enSection, /app then shows[\s\S]*full access[\s\S]*Review selection/i);
   assert.doesNotMatch(enSection, /tap[^<]*check full access/i);
 });
 

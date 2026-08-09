@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="FotoSafe help: correctly select a USB drive on Android, understand OTG, resolve USB errors and assess suitable accessories objectively.">
+  <meta name="description" content="FotoSafe 0.18.0 help: manage media access, correctly select a USB drive, understand OTG and resolve common problems.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://kiweidi.github.io/fotosafe-app/en/help.html">
   <link rel="alternate" hreflang="de" href="https://kiweidi.github.io/fotosafe-app/hilfe.html">
@@ -11,8 +11,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="FotoSafe">
-  <meta property="og:title" content="FotoSafe Help — USB Drives, OTG and Troubleshooting">
-  <meta property="og:description" content="Illustrated guidance for USB backups with FotoSafe: identify the storage destination, understand OTG and resolve common USB problems.">
+  <meta property="og:title" content="FotoSafe Help — Media Access, USB Drives and Troubleshooting">
+  <meta property="og:description" content="Help for FotoSafe 0.18.0: manage partial and full access, identify the storage destination, understand OTG and resolve common USB problems.">
   <meta property="og:url" content="https://kiweidi.github.io/fotosafe-app/en/help.html">
   <meta name="theme-color" content="#0b3a78">
   <link rel="icon" href="data:,">
@@ -20,7 +20,7 @@
   <script src="../assets/navigation.js" defer></script>
   <script type="module" src="../assets/language.js"></script>
   <script type="module" src="../assets/privacy-analytics.js"></script>
-  <title>FotoSafe Help — USB Drives, OTG &amp; Troubleshooting</title>
+  <title>FotoSafe Help — Media Access, USB Drives &amp; Troubleshooting</title>
   <style>
     :root {
       --ink: #091524;
@@ -345,7 +345,7 @@
     <header class="hero">
       <div class="eyebrow"><span class="dot" aria-hidden="true"></span> FotoSafe Help</div>
       <h1>Help &amp; <span>instructions.</span></h1>
-      <p class="lead">This page provides complete guidance for identifying USB storage, understanding OTG adapters, choosing the correct folder and resolving common connection problems. The folder name alone is not enough: the top of the Android file picker must show the <strong>USB storage device</strong>.</p>
+      <p class="lead">This page provides complete guidance for FotoSafe 0.18.0: managing partial and full access, identifying USB storage, understanding OTG adapters, choosing the correct folder and resolving common connection problems. The folder name alone is not enough: the top of the Android file picker must show the <strong>USB storage device</strong>.</p>
       <p class="video-note">Screenshots and videos are currently available in German only. You can view them on the <a href="../hilfe.html" lang="de">German help page</a>.</p>
       <nav class="jump" aria-label="Quick links">
         <a class="btn primary" href="#anleitung">Step by step</a>
@@ -368,7 +368,7 @@
       <div class="trouble">
         <article class="card"><h3>Directly from FotoSafe 0.18.0</h3><p>When partial access is active, tap <b>“Enable full access (recommended)”</b> in FotoSafe. FotoSafe opens the app details. Under the photo and video permissions, select full access.</p></article>
         <article class="card"><h3>Manually in Android settings, for example on Samsung devices</h3><p>Open <b>Settings &gt; Apps &gt; FotoSafe &gt; Permissions &gt; Photos and videos</b> and allow full access. The visible labels and menu sequence can differ by manufacturer and Android version and may therefore vary from this path.</p></article>
-        <article class="card"><h3>Check afterwards</h3><p>Return to FotoSafe. The app then shows the detected <b>full access</b> status and requires you to <b>rescan the selection</b>. Only then will the selection include the additional accessible media.</p></article>
+        <article class="card"><h3>Check afterwards</h3><p>Return to FotoSafe. The app then shows the detected <b>full access</b> status. Tap <b>“Review selection”</b> again. Only then will the selection include the additional accessible media.</p></article>
       </div>
     </section>
 
@@ -610,7 +610,7 @@
           <div><span class="category-label">Category D</span><h3 id="cat-phone-title">Suitable smartphones</h3><p>The Android device must support USB OTG and the Android Storage Access Framework. Specific recommendations should preferably be based on real FotoSafe tests. The file picker may look different depending on the manufacturer and Android version; without a genuine test, no product can be described as “guaranteed compatible”.</p></div>
           <ul class="category-facts"><li>USB OTG required</li><li>Android Storage Access Framework</li><li>Document the test device and Android version</li></ul>
         </div>
-        <p class="test-context"><strong>Current FotoSafe test status:</strong> Galaxy A57 5G, Galaxy S26 and HONOR 600 have been tested in practice with FotoSafe. FotoSafe 0.14 is documented as the test version for the HONOR 600; the FotoSafe version used for the two Samsung models was not documented. These tests are positive real-world results, but they do not provide a blanket compatibility guarantee for every system or app update.</p>
+        <p class="test-context"><strong>Current 0.18.0 test status:</strong> Google Play release 0.18.0 / code 35 was tested on a Galaxy S23 (Android 16), Honor 400 (Android 16) and Galaxy S21 Ultra (Android 15). On all three devices, no access, partial access, selecting more media, switching to full access and a fresh scan passed. The large-library test on the Galaxy S21 Ultra covered 14,653 media files and completed without a crash or ANR. The product cards below contain separate, explicitly labelled product experience and do not provide a blanket compatibility guarantee.</p>
         <div class="product-grid">
           <article class="product-card" data-product-id="phone_a57" data-category-id="smartphone" data-position-id="phone_01" data-evidence-id="tested" data-category="smartphone" data-title="Samsung Galaxy A57 5G, 128 GB" data-description="Galaxy A model in the linked 128 GB configuration, tested in practice with FotoSafe." data-compatibility-status="Tested with FotoSafe" data-tested-device="Galaxy A57 5G · app version not documented" data-affiliate-url="https://link.amazon/B084eAPvI" data-link-label="View on Amazon*" data-optional-image="../assets/products/a57.webp" data-last-checked="2026-07-31">
             <div class="product-visual"><img class="product-image" src="../assets/products/a57.webp" alt="Samsung Galaxy A57 5G in dark blue" width="721" height="900" loading="lazy"><!-- Omitted non-localised German badge: ../assets/products/tested-badge-de.webp --></div>
