@@ -3,8 +3,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/*.test.js",
-    "check": "npm test && node scripts/validate-site.js",
-    "test:browser": "node scripts/browser-localization-qa.js"
+    "build": "npm run build:preview",
+    "build:preview": "DEPLOY_ENV=preview OUTPUT_DIR=dist/preview node scripts/build-site.js",
+    "build:production": "DEPLOY_ENV=production OUTPUT_DIR=dist/production node scripts/build-site.js",
+    "test": "npm run legacy:test && npm run cloudflare:test:preview",
+    "validate": "SITE_DIR=dist/preview node scripts/validate-site.js",
+    "serve": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist/preview",
+    "check": "npm run legacy:check",
+    "legacy:test": "node --test tests/analytics-config.test.js tests/privacy-analytics-core.test.js tests/privacy-analytics-controller.test.js tests/workflow.test.js",
+    "legacy:validate": "node scripts/validate-legacy-site.js",
+    "legacy:check": "npm run legacy:test && npm run legacy:validate",
+    "cloudflare:test:preview": "SITE_DIR=dist/preview SITE_MODE=preview node --test tests/site-structure.test.js tests/localization.test.js tests/audit-remediation.test.js tests/negative-fixtures.test.js",
+    "cloudflare:test:production": "SITE_DIR=dist/production SITE_MODE=production node --test tests/site-structure.test.js tests/localization.test.js tests/audit-remediation.test.js tests/negative-fixtures.test.js",
+    "cloudflare:validate:preview": "SITE_DIR=dist/preview node scripts/validate-site.js",
+    "cloudflare:validate:production": "SITE_DIR=dist/production node scripts/validate-site.js",
+    "check:preview": "npm run build:preview && npm run cloudflare:test:preview && npm run cloudflare:validate:preview",
+    "check:production": "npm run build:production && npm run cloudflare:test:production && npm run cloudflare:validate:production",
+    "test:browser": "QA_REPORT=${QA_REPORT:-reports/browser-qa.json} QA_RUN_LABEL=${QA_RUN_LABEL:-local} python3 scripts/browser-qa.py"
   }
 }

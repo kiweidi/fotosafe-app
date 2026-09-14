@@ -1,57 +1,76 @@
-import {readFile, readdir, access} from 'node:fs/promises';
-import {resolve, dirname, relative} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {ANALYTICS_CONFIG} from '../assets/analytics-config.js';
-import {isProviderConfigured} from '../assets/privacy-analytics.js';
+import {access, readFile, readdir} from 'node:fs/promises';
+import {dirname, join, relative, resolve} from 'node:path';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const files = (await readdir(root, {recursive: true})).filter((name) => name.endsWith('.html')).sort();
-const failures = [];
-let checkedLinks = 0;
+const projectRoot=resolve(new URL('..',import.meta.url).pathname);
+const root=resolve(projectRoot,process.env.SITE_DIR||'dist/preview');
+const failures=[];
+let references=0;
 
-for (const name of files) {
-  const path = resolve(root, name);
-  const html = await readFile(path, 'utf8');
-  const htmlWithoutComments = html.replace(/<!--[\s\S]*?-->/g, '');
-  const ids = [...htmlWithoutComments.matchAll(/(?:^|\s)id="([^"]+)"/g)].map((match) => match[1]);
-  const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
-  if (duplicates.length) failures.push(`${name}: duplicate ids ${[...new Set(duplicates)].join(', ')}`);
+async function walk(dir){
+ const out=[];
+ for(const entry of await readdir(dir,{withFileTypes:true})){
+  const full=join(dir,entry.name);
+  if(entry.isDirectory()) out.push(...await walk(full)); else if(entry.name.endsWith('.html')) out.push(full);
+ }
+ return out;
+}
 
-  if (/<script[^>]+src="https:\/\//i.test(html)) failures.push(`${name}: third-party script is hard-coded`);
+function internalFile(url){
+ const path=url.split('#',1)[0].split('?',1)[0];
+ if(!path) return null;
+ if(path.startsWith('/')){
+  if(path.endsWith('/')) return join(root,path,'index.html');
+  return join(root,path);
+ }
+ return null;
+}
 
-  for (const match of htmlWithoutComments.matchAll(/<(?!base\b)[^>]*\b(?:href|src)="([^"]+)"/gi)) {
-    const target = match[1];
-    if (/^(?:https?:|mailto:|data:|#)/i.test(target)) {
-      if (target.startsWith('#') && !ids.includes(target.slice(1))) failures.push(`${name}: missing fragment ${target}`);
-      continue;
-    }
-    checkedLinks += 1;
-    const [filePart, fragment] = target.split('#', 2);
-    const localPath = resolve(dirname(path), filePart || name.split('/').at(-1));
-    try {
-      await access(localPath);
-    } catch {
-      failures.push(`${name}: missing local target ${target}`);
-      continue;
-    }
-    if (fragment && localPath.endsWith('.html')) {
-      const targetHtml = await readFile(localPath, 'utf8');
-      if (!new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(targetHtml)) {
-        failures.push(`${name}: missing fragment ${target} in ${relative(root, localPath)}`);
-      }
-    }
+const files=await walk(root);
+for(const path of files){
+ const name=relative(root,path);
+ const html=await readFile(path,'utf8');
+ const clean=html.replace(/<!--[\s\S]*?-->/g,'');
+ const ids=[...clean.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+ const dup=[...new Set(ids.filter((id,i)=>ids.indexOf(id)!==i))];
+ if(dup.length) failures.push(`${name}: duplicate IDs ${dup.join(', ')}`);
+ if((clean.match(/<main\b/g)||[]).length!==1) failures.push(`${name}: expected exactly one main`);
+ if((clean.match(/<h1\b/g)||[]).length!==1) failures.push(`${name}: expected exactly one h1`);
+ if(!/<a class="skip-link" href="#main">/.test(clean)) failures.push(`${name}: missing skip link`);
+ if(/<script[^>]+src="https?:\/\//i.test(clean)) failures.push(`${name}: remote script`);
+ for(const match of clean.matchAll(/<(?:a|img|script|link)\b[^>]*?\b(?:href|src)="([^"]+)"/gi)){
+  const target=match[1];
+  if(/^(?:https?:|mailto:|tel:|data:)/i.test(target)) continue;
+  references++;
+  if(target.startsWith('#')){
+   if(!ids.includes(target.slice(1))) failures.push(`${name}: missing local fragment ${target}`);
+   continue;
   }
+  const [url,fragment]=target.split('#',2);
+  let destination;
+  if(url.startsWith('/')) destination=internalFile(url);
+  else destination=resolve(dirname(path),url||name.split('/').at(-1));
+  try{await access(destination);}catch{failures.push(`${name}: missing ${target}`);continue;}
+  if(fragment && destination.endsWith('.html')){
+   const other=await readFile(destination,'utf8');
+   if(!new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}["']`).test(other)) failures.push(`${name}: missing target fragment ${target}`);
+  }
+ }
 }
 
-if (process.env.REQUIRE_ANALYTICS_ID === '1' && !isProviderConfigured(ANALYTICS_CONFIG)) {
-  failures.push('analytics provider is not fully configured');
+const redirects=await readFile(join(root,'_redirects'),'utf8');
+for(const line of redirects.trim().split('\n')){
+ const [from,to,status]=line.trim().split(/\s+/);
+ if(status!=='301') failures.push(`redirect ${from}: status is not 301`);
+ const destination=internalFile(to);
+ try{await access(destination);}catch{failures.push(`redirect ${from}: target ${to} missing`);}
 }
+const sitemap=await readFile(join(root,'sitemap.xml'),'utf8');
+if(sitemap.includes('/404/')) failures.push('sitemap includes 404 route');
+if(!sitemap.includes('https://fotosafe.weidisoft.net/en/')) failures.push('sitemap missing English home');
 
-if (failures.length) {
-  console.error(`Site validation failed (${failures.length}):`);
-  for (const failure of failures) console.error(`- ${failure}`);
-  process.exit(1);
+if(failures.length){
+ console.error(`Site validation failed (${failures.length}):`);
+ failures.forEach(item=>console.error(`- ${item}`));
+ process.exit(1);
 }
-
-console.log(`Site validation passed: ${files.length} HTML files, ${checkedLinks} local references.`);
-if (!isProviderConfigured(ANALYTICS_CONFIG)) console.log('Analytics provider intentionally remains unconfigured until a real Umami website ID is available.');
+console.log(`Site validation passed: ${files.length} HTML files, ${references} local references, ${redirects.trim().split('\n').length} redirects.`);
