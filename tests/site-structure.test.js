@@ -36,7 +36,7 @@ test('every page has one h1, language metadata, canonical and consent-gated anal
     assert.match(source,/<link rel="canonical" href="https:\/\/fotosafe\.weidisoft\.net\//,`${name}: canonical`);
     assert.match(source,/<link rel="alternate" hreflang="(?:de|en)"/,`${name}: hreflang`);
     assert.doesNotMatch(source,/<script[^>]+src="https?:\/\//i,`${name}: remote script`);
-    assert.equal((source.match(/<script type="module" src="\/assets\/privacy-analytics\.js" defer><\/script>/g)||[]).length,1,`${name}: analytics loader`);
+    assert.equal((source.match(/<script type="module" src="\/assets\/privacy-analytics\.js\?v=[0-9a-f]{12}" defer><\/script>/g)||[]).length,1,`${name}: analytics loader`);
     assert.doesNotMatch(source,/<script[^>]+src="https?:\/\//i,`${name}: remote script tag`);
   }
 });

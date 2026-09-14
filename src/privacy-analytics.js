@@ -127,14 +127,33 @@ function browserEnvironment() {
   };
 }
 
-function showSettings(controller) {
+function isUiBlocked(controller) {
+  return !controller.isEligible() || hasPrivacySignal({globalPrivacyControl: navigator.globalPrivacyControl === true, doNotTrack: navigator.doNotTrack || window.doNotTrack});
+}
+
+function showSettings(controller, trigger) {
   const panel = document.querySelector('[data-privacy-panel]');
   if (!panel) return;
-  const blocked = !controller.isEligible() || hasPrivacySignal({globalPrivacyControl: navigator.globalPrivacyControl === true, doNotTrack: navigator.doNotTrack || window.doNotTrack});
+  const prompt = document.querySelector('[data-privacy-prompt]');
+  const blocked = isUiBlocked(controller);
+  panel.dataset.returnFocus = trigger === prompt ? 'prompt' : 'settings';
+  prompt && (prompt.hidden = true);
   panel.hidden = false;
   panel.querySelector('[data-privacy-allow]').hidden = blocked;
   panel.querySelector('[data-privacy-blocked]').hidden = !blocked;
   panel.querySelector('[data-privacy-reject]').hidden = blocked;
+  (blocked ? panel.querySelector('[data-privacy-close]') : panel.querySelector('[data-privacy-reject]'))?.focus();
+}
+
+function closeSettings(controller) {
+  const panel = document.querySelector('[data-privacy-panel]');
+  const prompt = document.querySelector('[data-privacy-prompt]');
+  if (!panel || panel.hidden) return;
+  const returnToPrompt = panel.dataset.returnFocus === 'prompt';
+  panel.hidden = true;
+  if (controller.getStatus() === 'needs_consent') prompt.hidden = false;
+  const target = returnToPrompt ? prompt : document.querySelector('[data-privacy-settings]');
+  target?.focus();
 }
 
 function positionFor(link) {
@@ -149,10 +168,15 @@ if (typeof document !== 'undefined') {
   const controller = createAnalyticsController(ANALYTICS_CONFIG, browserEnvironment());
   const settings = document.querySelectorAll('[data-privacy-settings]');
   const panel = document.querySelector('[data-privacy-panel]');
-  settings.forEach((button) => button.addEventListener('click', () => showSettings(controller)));
-  panel?.querySelector('[data-privacy-allow]')?.addEventListener('click', () => { controller.accept(); panel.hidden = true; });
-  panel?.querySelector('[data-privacy-reject]')?.addEventListener('click', () => { controller.reject(); panel.hidden = true; });
-  panel?.querySelector('[data-privacy-close]')?.addEventListener('click', () => { panel.hidden = true; });
+  const prompt = document.querySelector('[data-privacy-prompt]');
+  settings.forEach((button) => button.addEventListener('click', () => showSettings(controller, button)));
+  prompt?.addEventListener('click', () => showSettings(controller, prompt));
+  panel?.querySelector('[data-privacy-allow]')?.addEventListener('click', () => { controller.accept(); panel.hidden = true; prompt.hidden = true; });
+  panel?.querySelector('[data-privacy-reject]')?.addEventListener('click', () => { controller.reject(); panel.hidden = true; prompt.hidden = true; });
+  panel?.querySelector('[data-privacy-close]')?.addEventListener('click', () => closeSettings(controller));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel && !panel.hidden) { event.preventDefault(); closeSettings(controller); }
+  });
 
   document.addEventListener('click', (event) => {
     const link = event.target.closest?.('a');
@@ -172,5 +196,5 @@ if (typeof document !== 'undefined') {
   document.querySelectorAll('details').forEach((details, index) => details.addEventListener('toggle', () => {
     if (details.open) controller.track('faq_open', {faq_id: `faq_${index + 1}`, page_id: document.body.dataset.pageId || 'home', lang: document.documentElement.lang === 'en' ? 'en' : 'de'});
   }));
-  if (controller.start() === 'needs_consent') showSettings(controller);
+  if (controller.start() === 'needs_consent' && prompt) prompt.hidden = false;
 }
