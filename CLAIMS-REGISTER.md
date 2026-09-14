@@ -21,7 +21,7 @@ Builder-owned evidence index, last reviewed 2026-09-13. It records what may be s
 
 ## External approval gates
 
-- **Operator gate:** the accountable operator must confirm Peter Weitgasser, Bsuch 123, A-5760 Saalfelden, Austria, and each published contact address before launch.
+- **Operator gate:** Peter Weitgasser confirmed his name, Bsuch 123, A-5760 Saalfelden, Austria, `fotosafe@weidisoft.net`, and `+43 699 10133093` for publication during the 2026-09-14 imprint review. He also confirmed that the operator is a natural person with no trade registration, WKO membership, company-register entry or VAT identification number. This owner statement is not an official register verification and does not determine whether the paid Google Play offering or related promotion nevertheless constitutes an entrepreneurial or trade activity; that classification remains an external legal/tax gate. Any later change of operator, legal form, trade registration, company-register status or VAT identification requires a new legal-content review.
 - **Privacy/legal gate:** a qualified reviewer must verify the real Cloudflare configuration, controller/processor roles, retention, transfers, contractual basis, Google Play purchase flow, separate app/site/store data flows, and DE/EN legal parity.
 - **Rights gate:** the owner must separately approve the app icon, social-share derivative, six screenshots, local SVG symbol work and any future restored help/product media. Official Google Play badges remain subject to Google's branding terms.
 - **App/release owner gate:** C01–C04, C09 and C13 need confirmation against the actual release without destructive backup/device actions performed only for marketing.
