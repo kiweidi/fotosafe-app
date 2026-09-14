@@ -152,6 +152,10 @@ async function viewportAudit(page, path, language, width, height, screenshotName
       const rect = link.getBoundingClientRect();
       return {text: link.textContent.trim(), width: rect.width, height: rect.height};
     }),
+    heroTargets: [...document.querySelectorAll('.hero h1,.hero .claim,.hero .play-cta,.hero .play-cta .btn,.hero .store-note')].map(node => {
+      const rect = node.getBoundingClientRect();
+      return {text: node.textContent.trim(), left: rect.left, right: rect.right, width: rect.width, height: rect.height};
+    }),
     anchors: [...document.querySelectorAll('a[href]')].length,
     styles: ${computedSnapshot}
   }))()`);
@@ -161,6 +165,9 @@ async function viewportAudit(page, path, language, width, height, screenshotName
   record(result.bodyTextLength > 100, `${path} has too little visible content at ${width}px`);
   for (const image of result.images) record(image.complete && image.naturalWidth > 0, `${path} image failed: ${image.src}`);
   for (const target of result.languageTargets) record(target.width >= 44 && target.height >= 44, `${path} language target below 44px at ${width}px: ${target.text} ${target.width}x${target.height}`);
+  for (const target of result.heroTargets) {
+    record(target.width > 0 && target.height > 0 && target.left >= 0 && target.right <= result.clientWidth, `${path} hero target clipped at ${width}px: ${target.text}`);
+  }
   if (width <= 860) record(result.menuVisible, `${path} mobile menu hidden at ${width}px`);
   if (width <= 860) {
     const menu = await page.evaluate(`(() => {
@@ -214,8 +221,36 @@ try {
     for (const width of widths) {
       const pageType = path.includes('help') || path.includes('hilfe') ? 'help' : 'home';
       const isComparisonPage = path === 'index.html' || path === 'en/index.html' || path === 'hilfe.html' || path === 'en/help.html';
-      const screenshot = isComparisonPage && (width === 1440 || width === 390) ? `${language}-${pageType}-${width}.png` : null;
+      const screenshot = isComparisonPage && (width === 1440 || width === 390 || width === 320) ? `${language}-${pageType}-${width}.png` : null;
       snapshots.set(`${path}:${width}`, await viewportAudit(page, path, language, width, width === 1440 ? 1000 : 844, screenshot));
+    }
+  }
+
+  for (const [homePath, language] of [['index.html', 'de'], ['en/index.html', 'en']]) {
+    await setPreference(page, language);
+    await page.call('Emulation.setDeviceMetricsOverride', {width: 390, height: 844, deviceScaleFactor: 1, mobile: true});
+    await page.navigate(`${site}/${homePath}`);
+    const internalHrefs = await page.evaluate(`([...new Set([...document.querySelectorAll('a[href]')]
+      .map(link => link.getAttribute('href'))
+      .filter(href => href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('javascript:')))])`);
+    for (const href of internalHrefs) {
+      await setPreference(page, language);
+      await page.navigate(`${site}/${homePath}`);
+      const expected = new URL(href, `${site}/${homePath}`).href;
+      const clicked = await page.evaluate(`(() => {
+        const link = [...document.querySelectorAll('a[href]')].find(node => node.getAttribute('href') === ${JSON.stringify(href)});
+        if (!link) return false;
+        link.closest('details')?.setAttribute('open', '');
+        link.click();
+        return true;
+      })()`);
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 150));
+      record(clicked, `${homePath} internal link disappeared before click: ${href}`);
+      record((await page.evaluate('location.href')) === expected, `${homePath} internal link click failed: ${href}`);
+      const clickErrors = page.events.filter((event) => event.method === 'Runtime.exceptionThrown'
+        || (event.method === 'Log.entryAdded' && event.params.entry.level === 'error')
+        || (event.method === 'Network.responseReceived' && event.params.response.status >= 400));
+      record(clickErrors.length === 0, `${homePath} internal link produced console/network errors: ${href}`);
     }
   }
 
