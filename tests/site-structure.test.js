@@ -25,7 +25,7 @@ test('build emits the complete DE/EN route inventory', async()=>{
   assert.deepEqual(actual,expected.toSorted());
 });
 
-test('every page has one h1, language metadata, canonical and no third-party runtime', async()=>{
+test('every page has one h1, language metadata, canonical and consent-gated analytics runtime', async()=>{
   for(const name of expected){
     const source=await load(name);
     const lang=name.startsWith('en/')?'en':'de';
@@ -36,7 +36,8 @@ test('every page has one h1, language metadata, canonical and no third-party run
     assert.match(source,/<link rel="canonical" href="https:\/\/fotosafe\.weidisoft\.net\//,`${name}: canonical`);
     assert.match(source,/<link rel="alternate" hreflang="(?:de|en)"/,`${name}: hreflang`);
     assert.doesNotMatch(source,/<script[^>]+src="https?:\/\//i,`${name}: remote script`);
-    assert.doesNotMatch(source,/(?:googletagmanager|google-analytics|umami|plausible|facebook\.net)/i,`${name}: analytics`);
+    assert.equal((source.match(/<script type="module" src="\/assets\/privacy-analytics\.js" defer><\/script>/g)||[]).length,1,`${name}: analytics loader`);
+    assert.doesNotMatch(source,/<script[^>]+src="https?:\/\//i,`${name}: remote script tag`);
   }
 });
 
@@ -127,7 +128,7 @@ test('guides state the safety-critical workflow and use structured data',async()
   assert.match(en,/originals (?:stay|remain)/i);
 });
 
-test('support and privacy reflect the no-form, no-analytics architecture',async()=>{
+test('support and privacy reflect the no-form, consent-gated analytics architecture',async()=>{
   for(const name of ['support/index.html','en/support/index.html']){
     const source=await load(name);
     assert.doesNotMatch(source,/<form\b/i);
@@ -137,7 +138,9 @@ test('support and privacy reflect the no-form, no-analytics architecture',async(
     const source=await load(name);
     assert.match(source,/Cloudflare Pages/);
     assert.match(source,/privacy@weidisoft\.net/);
-    assert.match(source,/keine (?:Analyse|Websiteanalyse)|no (?:website )?analytics/i);
+    assert.match(source,/Umami/i);
+    assert.match(source,/explicit consent|ausdrücklicher Einwilligung/i);
+    assert.match(source,/gateway\.umami\.is|cloud\.umami\.is/i);
     assert.match(source,/at\.weidi\.fotobackup/);
   }
 });

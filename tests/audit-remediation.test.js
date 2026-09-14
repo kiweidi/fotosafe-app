@@ -191,7 +191,7 @@ test('F09 build publishes only the explicit rights-documented asset allowlist', 
     ...screenshotStems.flatMap(stem => [`${stem}.webp`, `${stem}-360.webp`, `${stem}-540.webp`]),
     'fotosafe-app-icon.png', ...[40, 44, 72, 80, 88, 144].map(size => `fotosafe-app-icon-${size}.png`), 'fotosafe-share.png',
     'google-play/get-it-on-google-play-de.png', 'google-play/get-it-on-google-play-en.png',
-    'icons.svg', 'site.css', 'site.js'
+    'icons.svg', 'site.css', 'site.js', 'analytics-config.js', 'privacy-analytics-core.js', 'privacy-analytics.js'
   ];
   const actual = [];
   for (const entry of await readdir(join(root, 'assets'), {withFileTypes:true})) {
@@ -202,7 +202,7 @@ test('F09 build publishes only the explicit rights-documented asset allowlist', 
   assert.deepEqual(actual.sort(), expected.sort());
   assert.equal(await readFile(join(projectRoot, 'assets/usb-hilfe/01-sicherungsort-aendern.jpg')).then(() => true), true, 'source master must remain');
   const evidence = await readFile(join(projectRoot, 'ASSET-SOURCES.md'), 'utf8');
-  for (const asset of expected.filter((name) => !['site.css', 'site.js'].includes(name))) {
+  for (const asset of expected.filter((name) => !name.endsWith('.js') && name !== 'site.css')) {
     assert.ok(evidence.includes(asset), `missing rights row for ${asset}`);
   }
   assert.match(evidence, /Owner-\/Rechtsfreigabe offen/);
@@ -321,8 +321,8 @@ test('F18 generated headers enforce a minimal static-site CSP without broad scri
   assert.match(headers, /Content-Security-Policy:/);
   for (const directive of [
     "default-src 'self'", "base-uri 'self'", "object-src 'none'", "frame-ancestors 'none'",
-    "form-action 'self'", "img-src 'self' data:", "style-src 'self'", "connect-src 'none'",
-    "font-src 'self'", "media-src 'self'", "script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='"
+    "form-action 'self'", "img-src 'self' data:", "style-src 'self'", "connect-src https://gateway.umami.is",
+    "font-src 'self'", "media-src 'self'", "script-src 'self' https://cloud.umami.is 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='"
   ]) assert.ok(headers.includes(directive), `missing CSP directive: ${directive}`);
   assert.doesNotMatch(headers, /unsafe-inline|unsafe-eval|script-src[^\n;]*\*/i);
 });
