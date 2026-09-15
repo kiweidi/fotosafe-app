@@ -144,7 +144,9 @@ for (const page of pages) {
   await writeFile(target, layout({...page, active:page.active ?? page.path}), 'utf8');
 }
 await writeFile(resolve(out, 'robots.txt'), preview ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${canonicalBase}/sitemap.xml\n`);
-await writeFile(resolve(out, '_headers'), `/*\n${preview?'  X-Robots-Tag: noindex, nofollow\n':''}  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n\n/assets/*\n  Cache-Control: public, max-age=0, must-revalidate\n`);
+await writeFile(resolve(out, '_headers'), `/*\n${preview?'  X-Robots-Tag: noindex, nofollow\n':'  Strict-Transport-Security: max-age=2592000\n'}  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n\n/assets/*\n  Cache-Control: public, max-age=0, must-revalidate\n`);
+await mkdir(resolve(out, '.well-known'), {recursive:true});
+await writeFile(resolve(out, '.well-known/security.txt'), `Contact: mailto:support@weidisoft.net\nExpires: 2027-09-01T00:00:00Z\nPreferred-Languages: de, en\nCanonical: ${canonicalBase}/.well-known/security.txt\n`);
 await writeFile(resolve(out, '_redirects'), `/hilfe.html /hilfe/ 301\n/privacy.html /privacy/ 301\n/support.html /support/ 301\n/impressum.html /impressum/ 301\n/usb-stick-auswaehlen.html /usb-stick-fuer-android-auswaehlen/ 301\n/en/help.html /en/help/ 301\n/en/privacy.html /en/privacy/ 301\n/en/support.html /en/support/ 301\n/en/imprint.html /en/imprint/ 301\n/en/select-usb-drive.html /en/guides/choose-usb-drive-for-android/ 301\n`);
 const indexed = pages.filter((page) => !page.noindex).map((page) => `  <url><loc>${canonicalBase}${page.path}</loc></url>`).join('\n');
 await writeFile(resolve(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexed}\n</urlset>\n`);

@@ -163,6 +163,25 @@ test('legacy routes redirect to stable new paths',async()=>{
   }
 });
 
+test('production starts HSTS conservatively without subdomain or preload scope',async()=>{
+  const headers=await readFile(join(root,'_headers'),'utf8');
+  const mode=process.env.SITE_MODE||'preview';
+  if(mode==='production'){
+    assert.match(headers,/^  Strict-Transport-Security: max-age=2592000$/m);
+    assert.doesNotMatch(headers,/Strict-Transport-Security:[^\n]*(?:includeSubDomains|preload)/i);
+  }else{
+    assert.doesNotMatch(headers,/Strict-Transport-Security:/i);
+  }
+});
+
+test('build publishes an RFC 9116 security contact',async()=>{
+  const security=await readFile(join(root,'.well-known/security.txt'),'utf8');
+  assert.match(security,/^Contact: mailto:support@weidisoft\.net$/m);
+  assert.match(security,/^Expires: 2027-09-01T00:00:00Z$/m);
+  assert.match(security,/^Preferred-Languages: de, en$/m);
+  assert.match(security,/^Canonical: https:\/\/fotosafe\.weidisoft\.net\/\.well-known\/security\.txt$/m);
+});
+
 test('project-hosted 404 remains useful in German and English without a script redirect',async()=>{
   const fallback=await load('404.html');
   assert.match(fallback,/<section[^>]+lang="de"/);
