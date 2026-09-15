@@ -36,7 +36,9 @@ for (const name of files) {
     }
     if (fragment && localPath.endsWith('.html')) {
       const targetHtml = await readFile(localPath, 'utf8');
-      if (!new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(targetHtml)) {
+      const hasLocalFragment = new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(targetHtml);
+      const forwardsIncomingFragment = /target\.hash\s*=\s*window\.location\.hash/.test(targetHtml);
+      if (!hasLocalFragment && !forwardsIncomingFragment) {
         failures.push(`${name}: missing fragment ${target} in ${relative(root, localPath)}`);
       }
     }

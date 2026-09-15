@@ -8,6 +8,14 @@ let site = process.env.SITE_URL || '';
 let localServer = null;
 const outputDir = resolve('artifacts/localization-qa');
 const failures = [];
+const legacyRedirects = new Map([
+  ['hilfe.html', 'https://fotosafe.weidisoft.net/hilfe/'],
+  ['usb-stick-auswaehlen.html', 'https://fotosafe.weidisoft.net/usb-stick-fuer-android-auswaehlen/'],
+  ['support.html', 'https://fotosafe.weidisoft.net/support/'],
+  ['en/help.html', 'https://fotosafe.weidisoft.net/en/help/'],
+  ['en/select-usb-drive.html', 'https://fotosafe.weidisoft.net/en/guides/choose-usb-drive-for-android/'],
+  ['en/support.html', 'https://fotosafe.weidisoft.net/en/support/'],
+]);
 
 if (!site) {
   const contentTypes = new Map([
@@ -211,19 +219,24 @@ try {
   const {page} = session;
   await page.call('Emulation.setLocaleOverride', {locale: 'de-AT'});
   const routes = [
-    ['index.html', 'de'], ['en/index.html', 'en'], ['hilfe.html', 'de'], ['en/help.html', 'en'],
-    ['support.html', 'de'], ['en/support.html', 'en'], ['privacy.html', 'de'], ['en/privacy.html', 'en'],
+    ['index.html', 'de'], ['en/index.html', 'en'], ['privacy.html', 'de'], ['en/privacy.html', 'en'],
     ['impressum.html', 'de'], ['en/imprint.html', 'en'],
   ];
   const widths = [1440, 860, 390, 320];
   const snapshots = new Map();
   for (const [path, language] of routes) {
     for (const width of widths) {
-      const pageType = path.includes('help') || path.includes('hilfe') ? 'help' : 'home';
-      const isComparisonPage = path === 'index.html' || path === 'en/index.html' || path === 'hilfe.html' || path === 'en/help.html';
+      const pageType = 'home';
+      const isComparisonPage = path === 'index.html' || path === 'en/index.html';
       const screenshot = isComparisonPage && (width === 1440 || width === 390 || width === 320) ? `${language}-${pageType}-${width}.png` : null;
       snapshots.set(`${path}:${width}`, await viewportAudit(page, path, language, width, width === 1440 ? 1000 : 844, screenshot));
     }
+  }
+
+  for (const [path, destination] of legacyRedirects) {
+    const fragment = '#legacy-fragment';
+    await page.navigate(`${site}/${path}${fragment}`);
+    record((await page.evaluate('location.href')) === `${destination}${fragment}`, `${path} did not preserve its fragment at ${destination}`);
   }
 
   for (const [homePath, language] of [['index.html', 'de'], ['en/index.html', 'en']]) {
@@ -234,6 +247,9 @@ try {
       .map(link => link.getAttribute('href'))
       .filter(href => href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('javascript:')))])`);
     for (const href of internalHrefs) {
+      const localTarget = new URL(href, `${site}/${homePath}`);
+      const localPath = localTarget.pathname.replace(/^\/+/, '');
+      if (legacyRedirects.has(localPath)) continue;
       await setPreference(page, language);
       await page.navigate(`${site}/${homePath}`);
       const expected = new URL(href, `${site}/${homePath}`).href;
@@ -255,7 +271,7 @@ try {
   }
 
   for (const width of widths) {
-    for (const [dePath, enPath] of [['index.html', 'en/index.html'], ['hilfe.html', 'en/help.html']]) {
+    for (const [dePath, enPath] of [['index.html', 'en/index.html']]) {
       const de = snapshots.get(`${dePath}:${width}`);
       const en = snapshots.get(`${enPath}:${width}`);
       for (const selector of Object.keys(de.styles)) {
@@ -282,19 +298,19 @@ try {
   await new Promise((resolvePromise) => setTimeout(resolvePromise, 150));
   record((await page.evaluate('localStorage.getItem(\'fotosafe.language\')')) === 'de', 'Manual DE selection was not stored');
   record((await page.evaluate('location.pathname')).endsWith('/index.html') && !(await page.evaluate('location.pathname')).includes('/en/'), 'Manual DE selection did not open German partner');
-  await page.navigate(`${site}/hilfe.html`);
-  record((await page.evaluate('location.pathname')).endsWith('/hilfe.html'), 'Stored DE preference did not override English browser language');
+  await page.navigate(`${site}/privacy.html`);
+  record((await page.evaluate('location.pathname')).endsWith('/privacy.html') && !(await page.evaluate('location.pathname')).includes('/en/'), 'Stored DE preference did not override English browser language');
 
   await page.evaluate("document.querySelector('a[data-language=en]').click()");
   await new Promise((resolvePromise) => setTimeout(resolvePromise, 150));
   record((await page.evaluate('localStorage.getItem(\'fotosafe.language\')')) === 'en', 'Manual EN selection was not stored');
-  record((await page.evaluate('location.pathname')).endsWith('/en/help.html'), 'Manual EN selection did not open the English partner');
-  await page.navigate(`${site}/support.html`);
+  record((await page.evaluate('location.pathname')).endsWith('/en/privacy.html'), 'Manual EN selection did not open the English partner');
+  await page.navigate(`${site}/impressum.html`);
   await new Promise((resolvePromise) => setTimeout(resolvePromise, 150));
-  record((await page.evaluate('location.pathname')).endsWith('/en/support.html'), 'Stored EN preference did not redirect a German partner page');
+  record((await page.evaluate('location.pathname')).endsWith('/en/imprint.html'), 'Stored EN preference did not redirect a German partner page');
 
-  await page.navigate(`${site}/en/help.html`);
-  record((await page.evaluate('location.pathname')).endsWith('/en/help.html'), 'Direct English URL redirected to German');
+  await page.navigate(`${site}/en/privacy.html`);
+  record((await page.evaluate('location.pathname')).endsWith('/en/privacy.html'), 'Direct English URL redirected to German');
 
   await page.evaluate("document.querySelector('.fs-menu-toggle').focus()");
   await page.call('Input.dispatchKeyEvent', {type: 'rawKeyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13});
@@ -310,9 +326,9 @@ try {
   record((await page.evaluate("document.querySelector('.fs-menu-toggle').getAttribute('aria-expanded')")) === 'false', 'Escape did not close the mobile menu');
 
   await page.call('Emulation.setScriptExecutionDisabled', {value: true});
-  await page.navigate(`${site}/en/help.html`);
+  await page.navigate(`${site}/en/privacy.html`);
   const noJs = await page.evaluate(`({text: document.body.innerText.length, links: document.querySelectorAll('nav a').length, overflow: document.documentElement.scrollWidth === document.documentElement.clientWidth})`);
-  record(noJs.text > 1000 && noJs.links >= 7 && noJs.overflow, 'English help is not fully usable without JavaScript');
+  record(noJs.text > 1000 && noJs.links >= 7 && noJs.overflow, 'English privacy page is not fully usable without JavaScript');
   await page.call('Emulation.setScriptExecutionDisabled', {value: false});
 } finally {
   await session.close();

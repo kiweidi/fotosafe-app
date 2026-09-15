@@ -13,6 +13,11 @@ const pairs = [
   ['404.html', 'en/404.html'],
   ['usb-stick-auswaehlen.html', 'en/select-usb-drive.html'],
 ];
+const contentPairs = pairs.filter(([name]) => ![
+  'hilfe.html',
+  'support.html',
+  'usb-stick-auswaehlen.html',
+].includes(name));
 const origin = 'https://kiweidi.github.io/fotosafe-app/';
 
 async function source(path) {
@@ -28,8 +33,8 @@ test('every German public page has a directly corresponding English page', async
   }
 });
 
-test('page pairs expose canonical and reciprocal hreflang metadata', async () => {
-  for (const [de, en] of pairs.filter(([name]) => name !== '404.html')) {
+test('content page pairs expose canonical and reciprocal hreflang metadata', async () => {
+  for (const [de, en] of contentPairs.filter(([name]) => name !== '404.html')) {
     const deSource = await source(de);
     const enSource = await source(en);
     const deUrl = new URL(de, origin).href;
@@ -42,8 +47,8 @@ test('page pairs expose canonical and reciprocal hreflang metadata', async () =>
   }
 });
 
-test('every page pair has accessible corresponding-language links', async () => {
-  for (const [de, en] of pairs) {
+test('content page pairs have accessible corresponding-language links', async () => {
+  for (const [de, en] of contentPairs) {
     const deSource = await source(de);
     const enSource = await source(en);
     assert.match(deSource, /class="fs-language-link is-active"[^>]*aria-current="page"[^>]*>DE</i, `${de} active DE`);

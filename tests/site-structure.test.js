@@ -4,14 +4,14 @@ import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
-const pages = ['index.html', 'hilfe.html', 'support.html', 'privacy.html', 'impressum.html', '404.html'];
+const contentPages = ['index.html', 'privacy.html', 'impressum.html', '404.html'];
 
 async function html(name) {
   return readFile(join(root, name), 'utf8');
 }
 
-test('every public page declares a stable page id and loads the consent module locally', async () => {
-  for (const page of pages) {
+test('every local content page declares a stable page id and loads the consent module locally', async () => {
+  for (const page of contentPages) {
     const source = await html(page);
     assert.match(source, /<body[^>]*data-page-id="[a-z0-9_:-]+"/i, `${page} has no stable page id`);
     assert.match(source, /<script type="module" src="assets\/privacy-analytics\.js"><\/script>/, `${page} has no analytics module`);
@@ -32,60 +32,6 @@ test('privacy page distinguishes the tracking-free app from optional website sta
   assert.match(source, /IP-Adresse/);
 });
 
-test('localized help pages explain media access recovery with stable fragments', async () => {
-  const de = await html('hilfe.html');
-  const en = await html('en/help.html');
-
-  assert.match(de, /<a\b[^>]*href="#medienzugriff"[^>]*>Medienzugriff<\/a>/);
-  assert.match(en, /<a\b[^>]*href="#media-access"[^>]*>Media access<\/a>/);
-
-  const deSection = de.match(/<section\b(?=[^>]*\bid="medienzugriff")[^>]*>[\s\S]*?<\/section>/)?.[0] ?? '';
-  assert.match(deSection, /aria-labelledby="medienzugriff-title"/);
-  assert.match(deSection, /data-article-id="help_media_access"/);
-  assert.match(deSection, /Medienzugriff und App-Einstellungen/);
-  assert.match(deSection, /Manuell in den Android-Einstellungen, zum Beispiel auf Samsung-Geräten/);
-  assert.match(deSection, /Teilzugriff[\s\S]*nur die ausgewählten (?:Fotos und Videos|Medien)/i);
-  assert.match(deSection, /Vollzugriff[\s\S]*vollständige Backups[\s\S]*(?:nicht|nie) automatisch gewähren/i);
-  assert.match(deSection, /FotoSafe 0\.18\.0[\s\S]*Vollzugriff aktivieren \(empfohlen\)[\s\S]*App-Details/);
-  assert.match(deSection, /Einstellungen[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Berechtigungen[\s\S]*Fotos und Videos/);
-  assert.match(deSection, /Bezeichnungen[\s\S]*(?:Hersteller|Android-Version)[\s\S]*abweichen/i);
-  assert.match(deSection, /FotoSafe[\s\S]*Vollzugriff[\s\S]*Auswahl prüfen/i);
-  assert.doesNotMatch(deSection, /tippe auf[^<]*Vollzugriff prüfen/i);
-
-  const enSection = en.match(/<section\b(?=[^>]*\bid="media-access")[^>]*>[\s\S]*?<\/section>/)?.[0] ?? '';
-  assert.match(enSection, /aria-labelledby="media-access-title"/);
-  assert.match(enSection, /data-article-id="help_media_access"/);
-  assert.match(enSection, /Media access and app settings/);
-  assert.match(enSection, /Manually in Android settings, for example on Samsung devices/);
-  assert.match(enSection, /Partial access[\s\S]*only the selected (?:photos and videos|media)/i);
-  assert.match(enSection, /Full access[\s\S]*complete backups[\s\S]*(?:cannot|never) grant it automatically/i);
-  assert.match(enSection, /FotoSafe 0\.18\.0[\s\S]*Enable full access \(recommended\)[\s\S]*app details/i);
-  assert.match(enSection, /Settings[\s\S]*Apps[\s\S]*FotoSafe[\s\S]*Permissions[\s\S]*Photos and videos/);
-  assert.match(enSection, /labels[\s\S]*(?:manufacturer|Android version)[\s\S]*vary/i);
-  assert.match(enSection, /app then shows[\s\S]*full access[\s\S]*Review selection/i);
-  assert.doesNotMatch(enSection, /tap[^<]*check full access/i);
-});
-
-test('help products use stable non-text identifiers and sponsored links', async () => {
-  const source = await html('hilfe.html');
-  const cards = [...source.matchAll(/<article class="product-card"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(cards.length, 12);
-  for (const card of cards) {
-    assert.match(card, /data-product-id="[a-z0-9_:-]+"/);
-    assert.match(card, /data-position-id="[a-z0-9_:-]+"/);
-    assert.match(card, /data-evidence-id="(?:tested|plausible|manufacturer)"/);
-  }
-  const affiliateLinks = [...source.matchAll(/<a class="affiliate-link"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(affiliateLinks.length, 12);
-  for (const link of affiliateLinks) assert.match(link, /rel="[^"]*sponsored[^"]*"/);
-});
-
-test('support page has no form and does not collect support messages', async () => {
-  const source = await html('support.html');
-  assert.doesNotMatch(source, /<form\b/i);
-  assert.match(source, /mailto:fotosafe\.app@gmail\.com/i);
-  assert.match(source, /<footer[\s\S]*?support\.html" aria-current="page"/i);
-});
 
 test('consent controls are styled, keyboard-focusable and visually balanced', async () => {
   const source = await readFile(join(root, 'assets/navigation.css'), 'utf8');
