@@ -14,3 +14,4 @@
 @keyframes privacy-card-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:420px){.privacy-panel-actions{flex-direction:column}.privacy-panel-actions .button{flex-basis:auto;width:100%}.privacy-panel-card{padding:1rem}}
 .hero-claim{color:var(--blue);font-size:clamp(1.45rem,3vw,2.25rem);font-weight:850;letter-spacing:-.035em;line-height:1.12;margin:.65rem 0 1rem}.play-cta{align-items:center;display:flex;flex-direction:column;gap:.4rem;max-width:280px}.store-note{color:var(--muted);font-size:.8rem;font-weight:700;line-height:1.35;margin:0;text-align:center}.play-cta .play-badge{max-width:100%}@media(max-width:620px){.hero{padding-block:24px}.hero-copy h1{margin-bottom:8px}.hero-claim{margin:.3rem 0 .5rem}.hero-actions{margin-top:16px}}
+@media(max-width:620px){.privacy-prompt{animation:none;display:block;left:auto;margin:1rem auto;max-width:calc(100% - 32px);position:static;transform:none;width:max-content}}

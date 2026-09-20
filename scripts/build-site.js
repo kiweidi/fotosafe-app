@@ -2,7 +2,7 @@ import {cp, mkdir, readFile, rm, writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {additionalPages, appStructuredData, breadcrumbStructuredData} from './site-content.js';
+import {additionalPages, appStructuredData, articleStructuredData, breadcrumbStructuredData} from './site-content.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mode = process.env.DEPLOY_ENV || 'preview';
@@ -117,7 +117,7 @@ const deDestinationHelp = `<section id="zielordner"><p class="kicker">Android-Sy
 const schemaContext = 'https:'+'//schema.org';
 const schemas = {
   home: `<script type="application/ld+json">${JSON.stringify(appStructuredData({canonicalBase,playUrl,url:`${canonicalBase}/`,description:'Fotos und Videos direkt vom Android-Handy auf USB sichern – ohne PC und ohne Medien-Cloud. Originale bleiben erhalten. FotoSafe kostenlos testen.'}))}</script>`,
-  guide: `<script type="application/ld+json">${JSON.stringify({'@context':schemaContext,'@graph':[{'@type':'Article',headline:'Android-Fotos auf USB-Stick sichern – ohne PC',description:'Android-Fotos direkt auf einen USB-Stick kopieren: Voraussetzungen, sicherer Ablauf, Zielauswahl, Kontrolle und ehrliche Dateimanager-Alternative.',inLanguage:'de'},breadcrumbStructuredData([{name:'Startseite',item:`${canonicalBase}/`},{name:'USB-Anleitung'}])]})}</script>`
+  guide: `<script type="application/ld+json">${JSON.stringify({'@context':schemaContext,'@graph':[articleStructuredData({canonicalBase,path:'/android-fotos-auf-usb-stick-sichern/',headline:'Android-Fotos auf USB-Stick sichern – ohne PC',description:'Android-Fotos direkt auf einen USB-Stick kopieren: Voraussetzungen, sicherer Ablauf, Zielauswahl, Kontrolle und ehrliche Dateimanager-Alternative.',inLanguage:'de'}),breadcrumbStructuredData([{name:'Startseite',item:`${canonicalBase}/`},{name:'USB-Anleitung'}])]})}</script>`
 };
 
 const pages = [
@@ -138,6 +138,12 @@ await cp(resolve(root, 'src/site.js'), resolve(out, 'assets/site.js'));
 await cp(resolve(root, 'src/analytics-config.js'), resolve(out, 'assets/analytics-config.js'));
 await cp(resolve(root, 'src/privacy-analytics-core.js'), resolve(out, 'assets/privacy-analytics-core.js'));
 await cp(resolve(root, 'src/privacy-analytics.js'), resolve(out, 'assets/privacy-analytics.js'));
+const workerTemplate = await readFile(resolve(root, 'scripts/cloudflare-worker.js'), 'utf8');
+const workerSource = workerTemplate
+  .replace("'__DEPLOYMENT_MODE__'", JSON.stringify(mode))
+  .replace("'__CONTENT_SECURITY_POLICY__'", JSON.stringify(csp));
+if (/__DEPLOYMENT_MODE__|__CONTENT_SECURITY_POLICY__/.test(workerSource)) throw new Error('Worker configuration injection failed');
+await writeFile(resolve(out, '_worker.js'), workerSource);
 for (const page of pages) {
   const target = resolve(out, page.file);
   await mkdir(dirname(target), {recursive:true});

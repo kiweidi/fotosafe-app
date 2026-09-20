@@ -345,3 +345,55 @@ test('F19 previews and app icons use responsive derivatives while lightboxes ret
     }
   }
 });
+
+test('F20 the closed privacy prompt returns to document flow on narrow screens', async () => {
+  const css = await load('assets/site.css');
+  const narrowRules = [...css.matchAll(/@media\(max-width:(\d+)px\)\{\.privacy-prompt\{([^}]*)\}\}/g)]
+    .filter(([, width]) => Number(width) <= 620)
+    .map(([, , declarations]) => declarations);
+  assert.ok(narrowRules.length > 0, 'missing narrow-screen privacy prompt rule');
+  assert.ok(narrowRules.some(rule => /position:static/.test(rule)), 'privacy prompt still overlays mobile content');
+  assert.ok(narrowRules.some(rule => /display:block/.test(rule)), 'static prompt cannot use auto margins reliably');
+  assert.ok(narrowRules.some(rule => /animation:none/.test(rule)), 'desktop translate animation can move the static prompt');
+  assert.match(css, /\.privacy-prompt\{[^}]*min-height:44px/);
+});
+
+test('F21 every guide Article identifies its canonical page and existing share image', async () => {
+  const guides = new Map([
+    ['android-fotos-auf-usb-stick-sichern/index.html', '/android-fotos-auf-usb-stick-sichern/'],
+    ['usb-stick-fuer-android-auswaehlen/index.html', '/usb-stick-fuer-android-auswaehlen/'],
+    ['foto-backup-strategie-android/index.html', '/foto-backup-strategie-android/'],
+    ['en/guides/back-up-android-photos-to-usb/index.html', '/en/guides/back-up-android-photos-to-usb/'],
+    ['en/guides/choose-usb-drive-for-android/index.html', '/en/guides/choose-usb-drive-for-android/'],
+    ['en/guides/android-photo-backup-strategy/index.html', '/en/guides/android-photo-backup-strategy/'],
+  ]);
+  for (const [file, path] of guides) {
+    const html = await load(file);
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map(match => JSON.parse(match[1]));
+    const graph = schemas.flatMap(schema => schema['@graph'] ?? [schema]);
+    const article = graph.find(node => node['@type'] === 'Article');
+    const canonical = `https://fotosafe.weidisoft.net${path}`;
+    assert.ok(article, `${file}: Article missing`);
+    assert.equal(article.url, canonical, `${file}: Article.url`);
+    assert.deepEqual(article.mainEntityOfPage, {'@type': 'WebPage', '@id': canonical}, `${file}: mainEntityOfPage`);
+    assert.equal(article.image, 'https://fotosafe.weidisoft.net/assets/fotosafe-share.png', `${file}: image`);
+    for (const unverified of ['datePublished', 'dateModified', 'author', 'publisher']) {
+      assert.equal(article[unverified], undefined, `${file}: ${unverified} must not be invented`);
+    }
+  }
+});
+
+test('F22 every public mailto link opts out of Cloudflare email rewriting', async () => {
+  const contactPages = [
+    'support/index.html', 'impressum/index.html', 'privacy/index.html',
+    'en/support/index.html', 'en/imprint/index.html', 'en/privacy/index.html',
+  ];
+  for (const file of contactPages) {
+    const html = await load(file);
+    const mailtoCount = [...html.matchAll(/href="mailto:/g)].length;
+    const protectedCount = [...html.matchAll(/<!--email_off--><a\b[^>]*href="mailto:[^"]+"[^>]*>[^<]+<\/a><!--\/email_off-->/g)].length;
+    assert.ok(mailtoCount > 0, `${file}: mailto link missing`);
+    assert.equal(protectedCount, mailtoCount, `${file}: Cloudflare would rewrite a mailto link`);
+  }
+});
