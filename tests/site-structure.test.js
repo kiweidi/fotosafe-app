@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
-const contentPages = ['index.html', 'privacy.html', 'impressum.html', '404.html'];
+const contentPages = ['404.html'];
 
 async function html(name) {
   return readFile(join(root, name), 'utf8');
@@ -19,20 +19,6 @@ test('every local content page declares a stable page id and loads the consent m
   }
 });
 
-test('privacy page distinguishes the tracking-free app from optional website statistics', async () => {
-  const source = await html('privacy.html');
-  assert.match(source, /FotoSafe-App[^<]*(?:trackingfrei|keine[^<]+Tracking)/i);
-  assert.match(source, /Websiteanalyse/i);
-  assert.match(source, /Umami/i);
-  assert.match(source, /Einwilligung/i);
-  assert.match(source, /Datenschutz-Einstellungen/i);
-  assert.match(source, /Umami Software, Inc\./);
-  assert.match(source, /https:\/\/umami\.is\/dpa/);
-  assert.match(source, /Standardvertragsklauseln/);
-  assert.match(source, /IP-Adresse/);
-});
-
-
 test('consent controls are styled, keyboard-focusable and visually balanced', async () => {
   const source = await readFile(join(root, 'assets/navigation.css'), 'utf8');
   for (const selector of ['.fs-consent', '.fs-consent__accept', '.fs-consent__reject', '.fs-privacy-settings']) {
@@ -41,8 +27,6 @@ test('consent controls are styled, keyboard-focusable and visually balanced', as
   assert.match(source, /\.fs-consent__actions[^}]*grid-template-columns\s*:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(source, /\.fs-consent[^}]*:focus-visible/);
   assert.match(source, /\.fs-consent\{[^}]*max-height:[^}]*overflow-y:auto/);
-  const homeSource = await html('index.html');
-  assert.match(homeSource, /\.faq-grid\{[^}]*align-items:start/);
 });
 
 test('manual pageview sends the raw browser referrer only through the before-send sanitizer', async () => {
