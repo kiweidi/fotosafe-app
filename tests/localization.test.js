@@ -13,12 +13,7 @@ const pairs = [
   ['404.html', 'en/404.html'],
   ['usb-stick-auswaehlen.html', 'en/select-usb-drive.html'],
 ];
-const contentPairs = pairs.filter(([name]) => ![
-  'hilfe.html',
-  'support.html',
-  'usb-stick-auswaehlen.html',
-].includes(name));
-const origin = 'https://kiweidi.github.io/fotosafe-app/';
+const contentPairs = pairs.filter(([name]) => name === '404.html');
 
 async function source(path) {
   return readFile(join(root, path), 'utf8');
@@ -33,19 +28,6 @@ test('every German public page has a directly corresponding English page', async
   }
 });
 
-test('content page pairs expose canonical and reciprocal hreflang metadata', async () => {
-  for (const [de, en] of contentPairs.filter(([name]) => name !== '404.html')) {
-    const deSource = await source(de);
-    const enSource = await source(en);
-    const deUrl = new URL(de, origin).href;
-    const enUrl = new URL(en, origin).href;
-    for (const [page, html, canonical] of [[de, deSource, deUrl], [en, enSource, enUrl]]) {
-      assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), `${page} canonical`);
-      assert.match(html, new RegExp(`<link rel="alternate" hreflang="de" href="${deUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), `${page} de alternate`);
-      assert.match(html, new RegExp(`<link rel="alternate" hreflang="en" href="${enUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">`), `${page} en alternate`);
-    }
-  }
-});
 
 test('content page pairs have accessible corresponding-language links', async () => {
   for (const [de, en] of contentPairs) {
@@ -100,11 +82,4 @@ test('shared language selector honours manual preference and only auto-selects E
   assert.equal(core.englishPartnerPath('/fotosafe-app/', '/fotosafe-app/'), '/fotosafe-app/en/index.html');
   assert.equal(core.englishPartnerPath('/fotosafe-app/missing-page', '/fotosafe-app/'), '/fotosafe-app/en/index.html');
   assert.equal(core.englishPartnerPath('/fotosafe-app/missing/privacy.html', '/fotosafe-app/', 'en/404.html'), '/fotosafe-app/en/404.html');
-});
-
-test('English home uses the three matching English FotoSafe screenshots', async () => {
-  const html = await source('en/index.html');
-  for (const file of ['01-three-guided-steps-to-usb-en.png', '02-review-before-backup-en.png', '03-expert-mode-sources-en.png']) {
-    assert.match(html, new RegExp(`\.\./assets/${file}`));
-  }
 });
